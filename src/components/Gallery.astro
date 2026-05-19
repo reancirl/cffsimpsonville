@@ -1,0 +1,196 @@
+---
+const images = [
+  { src: '/images/honest.jpg', alt: 'Honest. Wholesome. Quality.', caption: 'Honest. Wholesome. Quality.', span: 'tall' },
+  { src: '/images/dish-1.jpg', alt: 'Southern plated dish', caption: 'Made by hand, every morning', span: 'normal' },
+  { src: '/images/fresh-hot.jpg', alt: 'Fresh hot served buffet', caption: 'Fresh & hot — straight to the table', span: 'normal' },
+  { src: '/images/dish-3.jpg', alt: 'Carolina Fine Foods signature plate', caption: "Grandma's recipe, kept exactly", span: 'wide' },
+  { src: '/images/zinger.jpg', alt: 'Zinger fried chicken', caption: 'Crisp, golden, never frozen', span: 'normal' },
+  { src: '/images/banner.jpg', alt: 'Carolina Fine Foods banner', caption: 'A table set for everyone', span: 'normal' },
+];
+---
+
+<section class="gallery section" id="gallery">
+  <div class="container">
+    <header class="gallery__header">
+      <div>
+        <span class="eyebrow" data-reveal>The Spread</span>
+        <h2 data-reveal-heading>A glimpse from our kitchen.</h2>
+      </div>
+      <p data-reveal data-reveal-delay="0.15">
+        Walk through the door, and you'll smell biscuits before you see the buffet. Here&rsquo;s a quiet look at what waits inside &mdash; the dishes, the porch, the warmth of forty-two years.
+      </p>
+    </header>
+
+    <div class="gallery__grid" data-reveal-stagger>
+      {images.map((img) => (
+        <figure class={`gallery__item gallery__item--${img.span}`}>
+          <div class="gallery__image-wrap">
+            <img src={img.src} alt={img.alt} loading="lazy" />
+            <div class="gallery__overlay">
+              <span class="gallery__caption">{img.caption}</span>
+            </div>
+          </div>
+        </figure>
+      ))}
+    </div>
+
+    <div class="gallery__quote" data-reveal>
+      <svg class="gallery__quote-mark" width="48" height="36" viewBox="0 0 48 36" fill="currentColor">
+        <path d="M0 36V20Q0 12 4 6T16 0v8q-4 0-6 3t-2 7h8v18zm24 0V20q0-8 4-14T40 0v8q-4 0-6 3t-2 7h8v18z"/>
+      </svg>
+      <blockquote>
+        Recipes that we have, have been passed down to us by you. We just try our best to keep them honest.
+      </blockquote>
+      <cite>— The Carolina Family · Simpsonville, SC</cite>
+    </div>
+  </div>
+</section>
+
+<style>
+  .gallery {
+    background: var(--color-cream);
+    position: relative;
+  }
+
+  .gallery__header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: end;
+    margin-bottom: 4rem;
+  }
+
+  .gallery__header .eyebrow { margin-bottom: 1rem; }
+
+  .gallery__header h2 { max-width: 14ch; }
+
+  .gallery__header p {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.15rem;
+    line-height: 1.6;
+    color: var(--color-ink-soft);
+  }
+
+  .gallery__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 200px;
+    gap: 1.25rem;
+    margin-bottom: 5rem;
+  }
+
+  .gallery__item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 2px;
+    box-shadow: 0 20px 40px -25px rgba(26, 20, 16, 0.45);
+    transition: transform 0.6s var(--easing), box-shadow 0.6s var(--easing);
+  }
+
+  .gallery__item--tall { grid-column: span 1; grid-row: span 2; }
+  .gallery__item--wide { grid-column: span 2; grid-row: span 2; }
+  .gallery__item--normal { grid-column: span 1; grid-row: span 1; }
+
+  .gallery__item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 40px 60px -30px rgba(26, 20, 16, 0.55);
+  }
+
+  .gallery__image-wrap {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .gallery__image-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1.5s var(--easing), filter 1s var(--easing);
+    filter: saturate(1.05);
+  }
+
+  .gallery__item:hover img {
+    transform: scale(1.08);
+    filter: saturate(1.15);
+  }
+
+  .gallery__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 50%, rgba(26, 20, 16, 0.7) 100%);
+    display: flex;
+    align-items: flex-end;
+    padding: 1.5rem;
+    opacity: 0;
+    transition: opacity 0.5s var(--easing);
+  }
+
+  .gallery__item:hover .gallery__overlay { opacity: 1; }
+
+  .gallery__caption {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--color-bone);
+    transform: translateY(10px);
+    transition: transform 0.5s var(--easing);
+  }
+
+  .gallery__item:hover .gallery__caption {
+    transform: translateY(0);
+  }
+
+  .gallery__quote {
+    max-width: 760px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 4rem 0 2rem;
+    color: var(--color-gold);
+    position: relative;
+  }
+
+  .gallery__quote-mark {
+    color: var(--color-gold);
+    opacity: 0.55;
+    margin-bottom: 1.5rem;
+  }
+
+  .gallery__quote blockquote {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    line-height: 1.35;
+    color: var(--color-ink);
+    margin-bottom: 1.5rem;
+  }
+
+  .gallery__quote cite {
+    font-family: var(--font-sans);
+    font-style: normal;
+    font-size: 0.72rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--color-maroon);
+  }
+
+  @media (max-width: 1024px) {
+    .gallery__header {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    .gallery__grid {
+      grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: 180px;
+    }
+    .gallery__item--wide { grid-column: span 2; grid-row: span 1; grid-row-end: auto; }
+    .gallery__item--tall { grid-column: span 1; grid-row: span 2; }
+  }
+
+  @media (max-width: 560px) {
+    .gallery__grid { grid-auto-rows: 150px; gap: 0.75rem; }
+  }
+</style>

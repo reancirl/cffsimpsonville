@@ -1,0 +1,64 @@
+---
+const words = [
+  'Hot Biscuits', 'Stone-Ground Grits', 'Banana Pudding', 'Fried Chicken',
+  'Sweet Tea', 'Cornbread', 'Slow-Smoked BBQ', 'Country Ham', 'Peach Cobbler',
+  'Mac & Cheese', 'Collards', 'Fried Okra', 'Hand-Cut Steak'
+];
+---
+
+<section class="marquee" aria-hidden="true">
+  <div class="marquee__track">
+    {[...words, ...words].map((word) => (
+      <span class="marquee__item">
+        <span>{word}</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 16.8l-6.2 4.5 2.4-7.4L2 9.4h7.6z"/></svg>
+      </span>
+    ))}
+  </div>
+</section>
+
+<style>
+  .marquee {
+    background: var(--color-ink);
+    color: var(--color-bone);
+    overflow: hidden;
+    padding: 1.75rem 0;
+    border-top: 1px solid var(--color-gold);
+    border-bottom: 1px solid var(--color-gold);
+    position: relative;
+  }
+
+  .marquee__track {
+    display: flex;
+    gap: 3rem;
+    width: max-content;
+    animation: scroll 45s linear infinite;
+  }
+
+  .marquee__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 3rem;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(1.5rem, 3vw, 2.4rem);
+    font-weight: 400;
+    color: var(--color-bone);
+    white-space: nowrap;
+    padding-right: 3rem;
+  }
+
+  .marquee__item svg {
+    color: var(--color-gold);
+    flex-shrink: 0;
+  }
+
+  @keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee__track { animation: none; }
+  }
+</style>

@@ -1,0 +1,207 @@
+---
+---
+
+<header class="nav" id="site-nav">
+  <div class="nav__inner">
+    <a href="#top" class="nav__brand">
+      <span class="nav__brand-mark">CFF</span>
+      <span class="nav__brand-text">
+        <span class="nav__brand-name">Carolina Fine Foods</span>
+        <span class="nav__brand-since">Est. 1983 · Simpsonville, SC</span>
+      </span>
+    </a>
+
+    <nav class="nav__links" aria-label="Primary">
+      <a href="#story">Our Story</a>
+      <a href="#menu">Menu</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#visit">Visit</a>
+    </nav>
+
+    <a href="tel:+18649673335" class="nav__cta">
+      <span>Reserve · Order</span>
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4">
+        <path d="M3 8h10M9 4l4 4-4 4" />
+      </svg>
+    </a>
+
+    <button class="nav__menu-btn" id="nav-toggle" aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</header>
+
+<style>
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 1.25rem 0;
+    transition: all 0.5s cubic-bezier(0.65, 0.05, 0.36, 1);
+    background: linear-gradient(180deg, rgba(247, 242, 234, 0.7) 0%, rgba(247, 242, 234, 0) 100%);
+    backdrop-filter: blur(0px);
+  }
+
+  .nav.is-scrolled {
+    padding: 0.65rem 0;
+    background: rgba(247, 242, 234, 0.92);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 1px 0 rgba(26, 20, 16, 0.06);
+  }
+
+  .nav__inner {
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .nav__brand {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+  }
+
+  .nav__brand-mark {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--color-maroon);
+    color: var(--color-bone);
+    display: grid;
+    place-items: center;
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    border: 1px solid var(--color-gold);
+    box-shadow: inset 0 0 0 3px var(--color-maroon), 0 0 0 1px var(--color-gold-soft);
+  }
+
+  .nav__brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+  }
+
+  .nav__brand-name {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    color: var(--color-ink);
+    font-weight: 500;
+    letter-spacing: 0.005em;
+  }
+
+  .nav__brand-since {
+    font-family: var(--font-sans);
+    font-size: 0.6rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-maroon);
+    margin-top: 2px;
+  }
+
+  .nav__links {
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+  }
+
+  .nav__links a {
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+    position: relative;
+    padding: 0.3rem 0;
+  }
+
+  .nav__links a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 1px;
+    background: var(--color-maroon);
+    transition: width 0.4s var(--easing);
+  }
+
+  .nav__links a:hover {
+    color: var(--color-maroon);
+  }
+
+  .nav__links a:hover::after {
+    width: 100%;
+  }
+
+  .nav__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.25rem;
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-bone);
+    background: var(--color-maroon);
+    border-radius: 999px;
+    transition: all 0.35s var(--easing);
+  }
+
+  .nav__cta:hover {
+    background: var(--color-maroon-deep);
+    transform: translateY(-1px);
+  }
+
+  .nav__menu-btn {
+    display: none;
+    width: 36px;
+    height: 36px;
+    flex-direction: column;
+    gap: 6px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .nav__menu-btn span {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    background: var(--color-ink);
+    transition: transform 0.3s var(--easing);
+  }
+
+  @media (max-width: 1024px) {
+    .nav__links { display: none; }
+    .nav__inner { grid-template-columns: 1fr auto auto; }
+  }
+
+  @media (max-width: 640px) {
+    .nav__brand-text { display: none; }
+    .nav__cta span { display: none; }
+    .nav__cta { width: 38px; height: 38px; padding: 0; justify-content: center; }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    const nav = document.getElementById('site-nav');
+    if (!nav) return;
+    const onScroll = () => {
+      if (window.scrollY > 30) nav.classList.add('is-scrolled');
+      else nav.classList.remove('is-scrolled');
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  })();
+</script>

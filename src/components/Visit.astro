@@ -1,0 +1,424 @@
+---
+---
+
+<section class="visit section" id="visit">
+  <div class="container visit__inner">
+    <div class="visit__head" data-reveal>
+      <span class="eyebrow">Pay us a visit</span>
+      <h2 data-reveal-heading>Pull up a chair on Main Street.</h2>
+      <p>
+        Just off the heart of Simpsonville, you&rsquo;ll find a porch light, a hot buffet, and somebody who remembers your name. Three private rooms for the family, the church group, the whole reunion &mdash; no extra charge.
+      </p>
+    </div>
+
+    <div class="visit__grid">
+      <div class="visit__card visit__card--hours" data-reveal>
+        <div class="visit__card-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+          </svg>
+        </div>
+        <h3>Hours</h3>
+        <ul class="visit__hours">
+          <li>
+            <div>
+              <span class="visit__hours-label">Lunch Buffet</span>
+              <span class="visit__hours-day">Monday – Friday</span>
+            </div>
+            <span class="visit__hours-time">11:00a – 2:30p</span>
+          </li>
+          <li>
+            <div>
+              <span class="visit__hours-label">Breakfast Buffet</span>
+              <span class="visit__hours-day">Saturday – Sunday</span>
+            </div>
+            <span class="visit__hours-time">7:00a – 11:00a</span>
+          </li>
+          <li>
+            <div>
+              <span class="visit__hours-label">Salad Bar</span>
+              <span class="visit__hours-day">Monday – Friday</span>
+            </div>
+            <span class="visit__hours-time">11:00a – 3:00p</span>
+          </li>
+          <li class="visit__hours-feature">
+            <div>
+              <span class="visit__hours-label">Seafood Night</span>
+              <span class="visit__hours-day">Friday — by tradition</span>
+            </div>
+            <span class="visit__hours-time">Call ahead</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="visit__card visit__card--map" data-reveal>
+        <div class="visit__map-img" data-image-reveal>
+          <img src="/images/storefront.jpg" alt="Carolina Fine Foods exterior on Main Street, Simpsonville" />
+          <div class="visit__map-pin">
+            <div class="visit__map-pin-dot"></div>
+            <span>Carolina Fine Foods</span>
+          </div>
+        </div>
+        <div class="visit__map-info">
+          <h3>Where we are</h3>
+          <address>
+            625 SE Main Street<br />
+            Simpsonville, South Carolina 29681
+          </address>
+          <a href="https://maps.google.com/?q=625+SE+Main+St+Simpsonville+SC+29681" target="_blank" rel="noopener" class="visit__map-link">
+            Open in Maps
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4">
+              <path d="M6 2h8v8M14 2L6 10M3 5v9h9"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="visit__card visit__card--reach" data-reveal>
+        <div class="visit__card-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.37 1.9.72 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0122 16.92z"/>
+          </svg>
+        </div>
+        <h3>Reach us</h3>
+        <a href="tel:+18649673335" class="visit__reach-phone">+1 864-967-3335</a>
+        <a href="mailto:cffsimpsonville@gmail.com" class="visit__reach-email">cffsimpsonville@gmail.com</a>
+
+        <div class="visit__reach-options">
+          <div class="visit__reach-row">
+            <span>Call-in</span><em>Orders & questions</em>
+          </div>
+          <div class="visit__reach-row">
+            <span>Drive-thru</span><em>Quick pickup</em>
+          </div>
+          <div class="visit__reach-row">
+            <span>DoorDash</span><em>Delivery available</em>
+          </div>
+          <div class="visit__reach-row">
+            <span>Private rooms</span><em>Three rooms · no upcharge</em>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="visit__cta" data-reveal>
+      <h3>Come hungry. Leave happy.</h3>
+      <div class="visit__cta-buttons">
+        <a href="tel:+18649673335" class="btn btn-primary">
+          Reserve a table
+          <span class="btn-arrow">→</span>
+        </a>
+        <a href="https://maps.google.com/?q=625+SE+Main+St+Simpsonville+SC+29681" target="_blank" rel="noopener" class="btn btn-ghost">Get directions</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .visit {
+    background: var(--color-bone);
+    position: relative;
+  }
+
+  .visit__head {
+    text-align: center;
+    max-width: 760px;
+    margin: 0 auto 5rem;
+  }
+
+  .visit__head .eyebrow { margin-bottom: 1rem; }
+
+  .visit__head h2 { margin-bottom: 1.5rem; }
+
+  .visit__head p {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.2rem;
+    line-height: 1.6;
+  }
+
+  .visit__grid {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 5rem;
+  }
+
+  .visit__card {
+    background: var(--color-cream);
+    padding: 2.5rem;
+    border-radius: 2px;
+    border: 1px solid rgba(185, 145, 78, 0.18);
+    box-shadow: 0 30px 60px -40px rgba(26, 20, 16, 0.3);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.5s var(--easing), box-shadow 0.5s var(--easing);
+  }
+
+  .visit__card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 50px 80px -40px rgba(26, 20, 16, 0.4);
+  }
+
+  .visit__card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(107, 29, 42, 0.1);
+    color: var(--color-maroon);
+    display: grid;
+    place-items: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .visit__card h3 {
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .visit__hours {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .visit__hours li {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px dashed rgba(26, 20, 16, 0.12);
+  }
+
+  .visit__hours li:last-child { border-bottom: none; padding-bottom: 0; }
+
+  .visit__hours-label {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    color: var(--color-ink);
+    font-weight: 500;
+  }
+
+  .visit__hours-day {
+    display: block;
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    color: var(--color-ink-soft);
+    margin-top: 0.15rem;
+  }
+
+  .visit__hours-time {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--color-maroon);
+    white-space: nowrap;
+  }
+
+  .visit__hours-feature {
+    background: rgba(185, 145, 78, 0.08);
+    margin: 0.5rem -1rem 0;
+    padding: 1rem !important;
+    border-radius: 2px;
+    border-bottom: none !important;
+  }
+
+  .visit__hours-feature .visit__hours-time {
+    color: var(--color-gold);
+  }
+
+  .visit__card--map {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .visit__map-img {
+    position: relative;
+    height: 280px;
+    overflow: hidden;
+  }
+
+  .visit__map-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1.2s var(--easing);
+  }
+
+  .visit__card--map:hover .visit__map-img img {
+    transform: scale(1.06);
+  }
+
+  .visit__map-pin {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(26, 20, 16, 0.85);
+    color: var(--color-bone);
+    padding: 0.75rem 1.25rem;
+    border-radius: 999px;
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    backdrop-filter: blur(8px);
+  }
+
+  .visit__map-pin-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-gold);
+    box-shadow: 0 0 0 4px rgba(185, 145, 78, 0.3);
+    animation: pinPulse 2s ease-out infinite;
+  }
+
+  @keyframes pinPulse {
+    0% { box-shadow: 0 0 0 0 rgba(185, 145, 78, 0.6); }
+    100% { box-shadow: 0 0 0 16px rgba(185, 145, 78, 0); }
+  }
+
+  .visit__map-info {
+    padding: 2rem 2.5rem 2.5rem;
+  }
+
+  .visit__map-info address {
+    font-style: normal;
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    color: var(--color-ink);
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+  }
+
+  .visit__map-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-maroon);
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid var(--color-maroon);
+  }
+
+  .visit__reach-phone {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1.55rem;
+    color: var(--color-maroon);
+    margin-bottom: 0.4rem;
+    font-weight: 500;
+  }
+
+  .visit__reach-phone:hover { color: var(--color-maroon-deep); }
+
+  .visit__reach-email {
+    display: block;
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    color: var(--color-ink-soft);
+    margin-bottom: 1.75rem;
+  }
+
+  .visit__reach-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(26, 20, 16, 0.12);
+  }
+
+  .visit__reach-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.88rem;
+  }
+
+  .visit__reach-row span {
+    font-family: var(--font-display);
+    font-weight: 500;
+    color: var(--color-ink);
+  }
+
+  .visit__reach-row em {
+    font-style: italic;
+    font-family: var(--font-serif);
+    color: var(--color-ink-soft);
+  }
+
+  .visit__cta {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: var(--color-maroon);
+    color: var(--color-bone);
+    border-radius: 2px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--color-gold-soft);
+  }
+
+  .visit__cta::before {
+    content: '';
+    position: absolute;
+    inset: 8px;
+    border: 1px solid rgba(212, 178, 122, 0.3);
+    pointer-events: none;
+  }
+
+  .visit__cta h3 {
+    font-style: italic;
+    font-family: var(--font-display);
+    font-weight: 400;
+    color: var(--color-bone);
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    margin-bottom: 2rem;
+  }
+
+  .visit__cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .visit__cta .btn-primary {
+    background: var(--color-bone);
+    color: var(--color-maroon);
+    border-color: var(--color-bone);
+  }
+
+  .visit__cta .btn-primary:hover {
+    background: var(--color-gold-soft);
+    color: var(--color-maroon-deep);
+    border-color: var(--color-gold-soft);
+  }
+
+  .visit__cta .btn-ghost {
+    color: var(--color-bone);
+    border-color: rgba(247, 242, 234, 0.4);
+  }
+
+  .visit__cta .btn-ghost:hover {
+    background: var(--color-bone);
+    color: var(--color-maroon);
+    border-color: var(--color-bone);
+  }
+
+  @media (max-width: 1024px) {
+    .visit__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

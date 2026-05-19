@@ -1,0 +1,433 @@
+---
+import HeroAnimation from './HeroAnimation.tsx';
+---
+
+<section class="hero" id="top">
+  <div class="hero__bg-texture"></div>
+
+  <div class="hero__inner">
+    <div class="hero__content">
+      <div class="hero__eyebrow">
+        <span class="hero__rule"></span>
+        <span class="hero__eyebrow-text">Family Owned · Est. 1983</span>
+      </div>
+
+      <h1 class="hero__title" aria-label="Where every plate tastes like home.">
+        <span class="hero__line">
+          <span class="hero__word">Where</span>
+          <span class="hero__word"><em>every</em></span>
+          <span class="hero__word">plate</span>
+        </span>
+        <span class="hero__line">
+          <span class="hero__word">tastes</span>
+          <span class="hero__word">like</span>
+          <span class="hero__word hero__word--accent">home.</span>
+        </span>
+      </h1>
+
+      <div class="hero__sub">
+        <p class="hero__sub-line">Three generations of grandma&rsquo;s recipes, simmered low &amp; slow.</p>
+        <p class="hero__sub-line">Over 200 homemade Southern dishes — buffet served daily.</p>
+      </div>
+
+      <div class="hero__cta-row">
+        <a href="#menu" class="hero__cta btn btn-primary">
+          See the menu
+          <span class="btn-arrow">→</span>
+        </a>
+        <a href="#visit" class="hero__cta btn btn-ghost">
+          Plan your visit
+        </a>
+      </div>
+
+      <div class="hero__meta">
+        <div class="hero__meta-item">
+          <span class="hero__meta-label">Lunch Buffet</span>
+          <span class="hero__meta-value">Mon – Fri · 11a – 2:30p</span>
+        </div>
+        <div class="hero__meta-divider"></div>
+        <div class="hero__meta-item">
+          <span class="hero__meta-label">Breakfast Buffet</span>
+          <span class="hero__meta-value">Sat – Sun · 7a – 11a</span>
+        </div>
+        <div class="hero__meta-divider"></div>
+        <div class="hero__meta-item">
+          <span class="hero__meta-label">Reservations</span>
+          <span class="hero__meta-value"><a href="tel:+18649673335">864-967-3335</a></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero__visual">
+      <div class="hero__image-frame">
+        <div class="hero__image-inner">
+          <img src="/images/hero-1.jpg" alt="Carolina Fine Foods classic plated dinner" />
+          <div class="hero__image-overlay"></div>
+        </div>
+        <div class="hero__floating hero__floating--badge">
+          <div class="hero__medallion">
+            <span class="hero__medallion-top">Since</span>
+            <span class="hero__medallion-year">1983</span>
+            <span class="hero__medallion-bot">Simpsonville</span>
+          </div>
+        </div>
+        <div class="hero__floating hero__floating--quote">
+          <span class="hero__quote-mark">&ldquo;</span>
+          <p>Recipes that we have, have been passed down to us by you.</p>
+          <span class="hero__quote-attrib">— The Carolina Family</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero__scroll" aria-hidden="true">
+    <span>Scroll</span>
+    <span class="hero__scroll-line"></span>
+  </div>
+</section>
+
+<HeroAnimation client:load />
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    padding: 9rem 0 5rem;
+    background: linear-gradient(180deg, #f7f2ea 0%, #f1e8d6 100%);
+    overflow: hidden;
+  }
+
+  .hero__bg-texture {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle at 20% 30%, rgba(185, 145, 78, 0.08), transparent 40%),
+                       radial-gradient(circle at 80% 70%, rgba(107, 29, 42, 0.06), transparent 50%);
+    pointer-events: none;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(185, 145, 78, 0.5), transparent);
+  }
+
+  .hero__inner {
+    position: relative;
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .hero__content { max-width: 620px; }
+
+  .hero__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .hero__rule {
+    display: inline-block;
+    height: 1.5px;
+    width: 70px;
+    background: var(--color-maroon);
+  }
+
+  .hero__eyebrow-text {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--color-maroon);
+  }
+
+  .hero__title {
+    font-size: clamp(3rem, 7vw, 6.5rem);
+    font-weight: 500;
+    line-height: 0.95;
+    letter-spacing: -0.025em;
+    color: var(--color-ink);
+    margin-bottom: 2.5rem;
+  }
+
+  .hero__line { display: block; }
+
+  .hero__word {
+    display: inline-block;
+    margin-right: 0.18em;
+  }
+
+  .hero__word em {
+    font-style: italic;
+    font-family: var(--font-serif);
+    font-weight: 400;
+    color: var(--color-maroon);
+  }
+
+  .hero__word--accent {
+    font-style: italic;
+    font-family: var(--font-serif);
+    color: var(--color-maroon);
+    font-weight: 400;
+  }
+
+  .hero__sub {
+    margin-bottom: 2.5rem;
+    max-width: 480px;
+  }
+
+  .hero__sub-line {
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    font-style: italic;
+    line-height: 1.55;
+    color: var(--color-ink-soft);
+    margin-bottom: 0.25rem;
+  }
+
+  .hero__sub-line:last-child {
+    font-style: normal;
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    color: rgba(58, 47, 38, 0.7);
+    margin-top: 0.5rem;
+  }
+
+  .hero__cta-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 3.5rem;
+  }
+
+  .hero__meta {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(26, 20, 16, 0.1);
+  }
+
+  .hero__meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .hero__meta-label {
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-maroon);
+  }
+
+  .hero__meta-value {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    color: var(--color-ink);
+    font-weight: 500;
+  }
+
+  .hero__meta-value a:hover { color: var(--color-maroon); }
+
+  .hero__meta-divider {
+    height: 32px;
+    width: 1px;
+    background: rgba(26, 20, 16, 0.15);
+  }
+
+  .hero__visual {
+    position: relative;
+    aspect-ratio: 4/5;
+    width: 100%;
+  }
+
+  .hero__image-frame {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 2px;
+  }
+
+  .hero__image-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 2px;
+    box-shadow: var(--shadow-deep), 0 0 0 1px rgba(185, 145, 78, 0.3), 0 0 0 8px rgba(247, 242, 234, 0.5);
+  }
+
+  .hero__image-inner img {
+    width: 110%;
+    height: 110%;
+    object-fit: cover;
+    position: absolute;
+    inset: -5%;
+    filter: saturate(1.05) contrast(1.02);
+  }
+
+  .hero__image-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent 50%, rgba(74, 18, 28, 0.2) 100%);
+    pointer-events: none;
+  }
+
+  .hero__floating {
+    position: absolute;
+    background: var(--color-bone);
+    box-shadow: var(--shadow-soft);
+    border: 1px solid rgba(185, 145, 78, 0.25);
+  }
+
+  .hero__floating--badge {
+    top: -32px;
+    right: -32px;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: var(--color-maroon);
+    color: var(--color-bone);
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--color-gold);
+    box-shadow: var(--shadow-deep), inset 0 0 0 4px var(--color-maroon), inset 0 0 0 5px var(--color-gold-soft);
+  }
+
+  .hero__medallion {
+    text-align: center;
+    line-height: 1.1;
+    padding: 1rem;
+  }
+
+  .hero__medallion-top, .hero__medallion-bot {
+    display: block;
+    font-family: var(--font-sans);
+    font-size: 0.55rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--color-gold-soft);
+  }
+
+  .hero__medallion-year {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 2.25rem;
+    font-weight: 500;
+    color: var(--color-bone);
+    margin: 0.35rem 0;
+    font-style: italic;
+  }
+
+  .hero__floating--quote {
+    bottom: -28px;
+    left: -38px;
+    max-width: 270px;
+    padding: 1.5rem 1.75rem;
+    border-radius: 2px;
+  }
+
+  .hero__floating--quote p {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.05rem;
+    line-height: 1.45;
+    color: var(--color-ink);
+    margin-bottom: 0.65rem;
+  }
+
+  .hero__quote-mark {
+    position: absolute;
+    top: -8px;
+    left: 14px;
+    font-family: var(--font-display);
+    font-size: 3.5rem;
+    line-height: 1;
+    color: var(--color-maroon);
+  }
+
+  .hero__quote-attrib {
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-maroon);
+  }
+
+  .hero__scroll {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--font-sans);
+    font-size: 0.62rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: rgba(26, 20, 16, 0.5);
+  }
+
+  .hero__scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(180deg, var(--color-gold), transparent);
+    animation: scrollPulse 2.5s var(--easing) infinite;
+  }
+
+  @keyframes scrollPulse {
+    0% { transform: scaleY(0.4); transform-origin: top; opacity: 0.4; }
+    50% { transform: scaleY(1); transform-origin: top; opacity: 1; }
+    51% { transform: scaleY(1); transform-origin: bottom; opacity: 1; }
+    100% { transform: scaleY(0.4); transform-origin: bottom; opacity: 0.4; }
+  }
+
+  @media (max-width: 1024px) {
+    .hero { padding-top: 7.5rem; }
+    .hero__inner {
+      grid-template-columns: 1fr;
+      gap: 4rem;
+    }
+    .hero__visual {
+      max-width: 480px;
+      margin: 0 auto;
+    }
+    .hero__scroll { display: none; }
+  }
+
+  @media (max-width: 600px) {
+    .hero__floating--badge {
+      width: 110px;
+      height: 110px;
+      top: -20px;
+      right: -10px;
+    }
+    .hero__medallion-year { font-size: 1.7rem; }
+    .hero__floating--quote {
+      left: -10px;
+      bottom: -20px;
+      max-width: 220px;
+      padding: 1.1rem 1.25rem;
+    }
+    .hero__floating--quote p { font-size: 0.92rem; }
+    .hero__meta { gap: 1rem; }
+    .hero__meta-divider { display: none; }
+  }
+</style>
