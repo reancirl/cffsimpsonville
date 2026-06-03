@@ -40,6 +40,14 @@
         </a>
       </div>
     </div>
+
+    <div class="footer__col footer__review">
+      <h4>Write a Review</h4>
+      <a href="https://g.co/kgs/u9zrz3P" target="_blank" rel="noopener" class="footer__qr" aria-label="Scan or click to write a Google review for Carolina Fine Foods">
+        <img src="/images/Caroline-Fine-Foods-QR-Code.png" alt="QR code linking to the Carolina Fine Foods Google review page" width="132" height="132" loading="lazy" />
+        <span class="footer__qr-label">Scan or click to review us on Google</span>
+      </a>
+    </div>
   </div>
 
   <div class="footer__bottom">
@@ -71,7 +79,7 @@
 
   .footer__inner {
     display: grid;
-    grid-template-columns: 1.4fr 1fr 1.2fr 1fr;
+    grid-template-columns: 1.3fr 0.9fr 1.1fr 1fr auto;
     gap: 4rem;
     padding-bottom: 5rem;
   }
@@ -189,6 +197,37 @@
     border-color: var(--color-maroon);
     color: var(--color-bone) !important;
     transform: translateY(-2px);
+  }
+
+  .footer__qr {
+    display: inline-flex !important;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.85rem;
+    text-align: center;
+  }
+
+  .footer__qr img {
+    width: 132px;
+    height: 132px;
+    border-radius: 4px;
+    padding: 7px;
+    background: var(--color-bone);
+    border: 1px solid rgba(185, 145, 78, 0.4);
+    transition: transform 0.3s var(--easing), box-shadow 0.3s var(--easing);
+  }
+
+  .footer__qr:hover img {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 34px -12px rgba(0, 0, 0, 0.6);
+  }
+
+  .footer__qr-label {
+    font-size: 0.78rem !important;
+    color: rgba(247, 242, 234, 0.6) !important;
+    letter-spacing: 0.04em;
+    max-width: 150px;
+    line-height: 1.5 !important;
   }
 
   .footer__bottom {

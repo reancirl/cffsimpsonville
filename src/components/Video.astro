@@ -1,0 +1,207 @@
+---
+// Cinematic brand-film section, pointing at the web-encoded MP4.
+// The thumbnail is a real frame from the film itself: the `#t=0.1` media
+// fragment makes the browser seek to ~0.1s and render that frame as the
+// poster (needs preload="metadata"), so it always matches the video content.
+const srcMp4 = '/videos/carolina-fine-foods.mp4';
+const posterFrame = `${srcMp4}#t=0.1`;
+---
+
+<section class="film section" id="film">
+  <div class="film__bg-texture" aria-hidden="true"></div>
+
+  <div class="container film__inner">
+    <header class="film__head" data-reveal>
+      <span class="eyebrow eyebrow--light">Watch</span>
+      <h2 data-reveal-heading>The most authentic Southern cuisine.</h2>
+      <p>
+        Two minutes inside the kitchen on Main Street &mdash; the biscuits, the buffet, and forty-two years of hands that remember.
+      </p>
+    </header>
+
+    <figure class="film__frame" data-image-reveal>
+      <video
+        id="brand-film"
+        class="film__video"
+        preload="metadata"
+        playsinline
+        controls
+      >
+        <source src={posterFrame} type="video/mp4" />
+        Your browser doesn&rsquo;t support embedded video.
+        <a href={srcMp4}>Download the film</a> instead.
+      </video>
+
+      <button class="film__play" id="film-play" type="button" aria-label="Play the film">
+        <span class="film__play-ring">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28" aria-hidden="true">
+            <path d="M8 5v14l11-7z" />
+          </svg>
+        </span>
+        <span class="film__play-label">Play the film</span>
+      </button>
+
+      <figcaption class="film__caption">Carolina Fine Foods &middot; Simpsonville, SC</figcaption>
+    </figure>
+  </div>
+</section>
+
+<style>
+  .film {
+    position: relative;
+    background: var(--color-maroon-deep);
+    color: var(--color-bone);
+    overflow: hidden;
+  }
+
+  .film__bg-texture {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle at 18% 20%, rgba(185, 145, 78, 0.12), transparent 45%),
+                       radial-gradient(circle at 82% 80%, rgba(107, 29, 42, 0.4), transparent 55%);
+    pointer-events: none;
+  }
+
+  .film__inner { position: relative; }
+
+  .film__head {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 3.5rem;
+  }
+
+  .film__head .eyebrow { margin-bottom: 1rem; }
+
+  .film__head h2 {
+    color: var(--color-bone);
+    margin-bottom: 1.25rem;
+  }
+
+  .film__head p {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: rgba(247, 242, 234, 0.78);
+  }
+
+  .eyebrow--light { color: var(--color-gold-soft); }
+  .eyebrow--light::before { background: var(--color-gold-soft); }
+
+  .film__frame {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+    aspect-ratio: 16 / 9;
+    border-radius: 2px;
+    overflow: hidden;
+    box-shadow: var(--shadow-deep), 0 0 0 1px rgba(185, 145, 78, 0.35), 0 0 0 8px rgba(74, 18, 28, 0.5);
+  }
+
+  .film__video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    background: #000;
+  }
+
+  .film__play {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    background: linear-gradient(180deg, rgba(26, 20, 16, 0.2) 0%, rgba(26, 20, 16, 0.55) 100%);
+    cursor: pointer;
+    transition: opacity 0.5s var(--easing);
+  }
+
+  .film__play.is-hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .film__play-ring {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    background: var(--color-maroon);
+    color: var(--color-bone);
+    border: 2px solid var(--color-gold-soft);
+    box-shadow: 0 12px 32px -6px rgba(0, 0, 0, 0.55), inset 0 0 0 4px rgba(212, 178, 122, 0.25);
+    transition: transform 0.4s var(--easing), background 0.4s var(--easing);
+  }
+
+  .film__play-ring svg {
+    transform: translateX(2px);
+  }
+
+  .film__play:hover .film__play-ring {
+    transform: scale(1.08);
+    background: var(--color-maroon-deep);
+  }
+
+  .film__play-label {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--color-bone);
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
+  }
+
+  .film__caption {
+    position: absolute;
+    left: 1.5rem;
+    bottom: 1.25rem;
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(247, 242, 234, 0.7);
+    pointer-events: none;
+    transition: opacity 0.4s var(--easing);
+  }
+
+  .film__frame.is-playing .film__caption { opacity: 0; }
+
+  @media (max-width: 600px) {
+    .film__play-ring { width: 68px; height: 68px; }
+    .film__play-label { margin-top: 2rem; }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    const video = document.getElementById('brand-film');
+    const playBtn = document.getElementById('film-play');
+    if (!video || !playBtn) return;
+    const frame = video.closest('.film__frame');
+
+    let started = false;
+    playBtn.addEventListener('click', function () {
+      playBtn.classList.add('is-hidden');
+      if (frame) frame.classList.add('is-playing');
+      // The poster frame seeks to ~0.1s; rewind to 0 the first time we play.
+      if (!started) { video.currentTime = 0; started = true; }
+      video.play();
+    });
+
+    video.addEventListener('pause', function () {
+      if (!video.ended) playBtn.classList.remove('is-hidden');
+    });
+    video.addEventListener('play', function () {
+      playBtn.classList.add('is-hidden');
+    });
+    video.addEventListener('ended', function () {
+      playBtn.classList.remove('is-hidden');
+      if (frame) frame.classList.remove('is-playing');
+    });
+  })();
+</script>

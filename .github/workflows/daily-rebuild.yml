@@ -1,0 +1,27 @@
+name: Daily review refresh
+
+# Rebuilds the Vercel deployment once a day so new Google reviews
+# (fetched at build time in src/components/Reviews.astro) get pulled in.
+#
+# Setup: in the GitHub repo, add a secret named VERCEL_DEPLOY_HOOK_URL
+#   (Settings → Secrets and variables → Actions → New repository secret)
+#   set to the Deploy Hook URL you create in the Vercel dashboard
+#   (Project → Settings → Git → Deploy Hooks).
+
+on:
+  schedule:
+    # 08:00 UTC daily (~3–4am US Eastern). Adjust the cron as you like.
+    - cron: '0 8 * * *'
+  workflow_dispatch: {} # allows a manual "Run workflow" button too
+
+jobs:
+  trigger-rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Vercel deploy hook
+        run: |
+          if [ -z "${{ secrets.VERCEL_DEPLOY_HOOK_URL }}" ]; then
+            echo "VERCEL_DEPLOY_HOOK_URL secret is not set." >&2
+            exit 1
+          fi
+          curl -fsS -X POST "${{ secrets.VERCEL_DEPLOY_HOOK_URL }}"

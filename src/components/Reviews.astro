@@ -1,0 +1,250 @@
+---
+// Reviews are added manually because pulling live Google reviews isn't free for development.
+// To update: edit src/data/reviews.json (review list + the rating / total figures).
+import reviewsData from '../data/reviews.json';
+
+const { rating, total, reviewUrl } = reviewsData;
+const REVIEWS = reviewsData.reviews;
+
+// Round the aggregate to nearest half for the header star row.
+const fullStars = Math.floor(rating);
+const hasHalf = rating - fullStars >= 0.25 && rating - fullStars < 0.75;
+const ratingStars = Array.from({ length: 5 }, (_, i) => {
+  if (i < fullStars) return 'full';
+  if (i === fullStars && hasHalf) return 'half';
+  return 'empty';
+});
+
+const STAR_PATH = 'M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01z';
+---
+
+<section class="reviews section" id="reviews">
+  <div class="container">
+    <header class="reviews__header" data-reveal>
+      <span class="eyebrow">Kind Words</span>
+      <h2 data-reveal-heading>Loved by the Upstate.</h2>
+
+      <div class="reviews__summary">
+        <span class="reviews__rating-num">{rating.toFixed(1)}</span>
+        <span class="reviews__stars" aria-label={`${rating} out of 5 stars`}>
+          <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+            <defs>
+              <linearGradient id="star-half">
+                <stop offset="50%" stop-color="var(--color-gold)" />
+                <stop offset="50%" stop-color="rgba(26,20,16,0.18)" />
+              </linearGradient>
+            </defs>
+          </svg>
+          {ratingStars.map((s) => (
+            <svg viewBox="0 0 24 24" class={`reviews__star reviews__star--${s}`} aria-hidden="true">
+              <path d={STAR_PATH} />
+            </svg>
+          ))}
+        </span>
+        <span class="reviews__count">{total.toLocaleString()} Google reviews</span>
+      </div>
+    </header>
+
+    <div class="reviews__grid" data-reveal-stagger>
+      {REVIEWS.map((r) => (
+        <figure class="reviews__card">
+          <div class="reviews__card-head">
+            {r.image
+              ? <img class="reviews__avatar" src={r.image} alt={`${r.author} profile photo`} width="44" height="44" loading="lazy" />
+              : <span class="reviews__avatar reviews__avatar--initial">{r.author.charAt(0)}</span>}
+            <figcaption class="reviews__author-meta">
+              <span class="reviews__author-name">{r.author}</span>
+              <span class="reviews__author-sub">{r.meta}</span>
+            </figcaption>
+            <svg class="reviews__google" viewBox="0 0 48 48" width="22" height="22" aria-label="Posted on Google">
+              <path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/>
+              <path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/>
+              <path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24s.85 6.91 2.34 9.88l7.35-5.7z"/>
+              <path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7c1.73-5.2 6.58-9.07 12.31-9.07z"/>
+            </svg>
+          </div>
+          <div class="reviews__rating-row">
+            <span class="reviews__card-stars" aria-label={`${r.rating} out of 5`}>
+              {Array.from({ length: 5 }, (_, i) => (
+                <svg viewBox="0 0 24 24" class={`reviews__star ${i < r.rating ? 'reviews__star--full' : 'reviews__star--empty'}`} aria-hidden="true">
+                  <path d={STAR_PATH} />
+                </svg>
+              ))}
+            </span>
+            <span class="reviews__author-time">{r.time}</span>
+          </div>
+          <blockquote class="reviews__text">{r.text}</blockquote>
+        </figure>
+      ))}
+    </div>
+
+    <div class="reviews__cta" data-reveal>
+      <a href={reviewUrl} target="_blank" rel="noopener" class="btn btn-primary">
+        Write a review
+        <span class="btn-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .reviews {
+    background: var(--color-cream);
+  }
+
+  .reviews__header {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 4rem;
+  }
+
+  .reviews__header .eyebrow { margin-bottom: 1rem; }
+  .reviews__header h2 { margin-bottom: 1.75rem; }
+
+  .reviews__summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .reviews__rating-num {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.8rem;
+    color: var(--color-maroon);
+    font-weight: 500;
+  }
+
+  .reviews__stars {
+    display: inline-flex;
+    gap: 2px;
+  }
+
+  .reviews__star {
+    width: 22px;
+    height: 22px;
+  }
+
+  .reviews__star--full { color: var(--color-gold); fill: currentColor; }
+  .reviews__star--empty { color: rgba(26, 20, 16, 0.18); fill: currentColor; }
+  .reviews__star--half { fill: url(#star-half); }
+
+  .reviews__count {
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+    color: var(--color-ink-soft);
+  }
+
+  .reviews__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    align-items: stretch;
+    margin-bottom: 3.5rem;
+  }
+
+  .reviews__card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    background: var(--color-bone);
+    border: 1px solid rgba(185, 145, 78, 0.2);
+    border-radius: 8px;
+    padding: 1.5rem 1.5rem 1.75rem;
+    box-shadow: 0 30px 60px -45px rgba(26, 20, 16, 0.4);
+    transition: transform 0.5s var(--easing), box-shadow 0.5s var(--easing);
+  }
+
+  .reviews__card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 45px 75px -45px rgba(26, 20, 16, 0.5);
+  }
+
+  .reviews__card-head {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .reviews__avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    object-fit: cover;
+  }
+
+  .reviews__avatar--initial {
+    display: grid;
+    place-items: center;
+    background: var(--color-maroon);
+    color: var(--color-bone);
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
+
+  .reviews__author-meta {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.25;
+    margin-right: auto;
+    min-width: 0;
+  }
+
+  .reviews__author-name {
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+
+  .reviews__author-sub {
+    font-size: 0.78rem;
+    color: var(--color-ink-soft);
+    margin-top: 1px;
+  }
+
+  .reviews__google {
+    flex-shrink: 0;
+    align-self: flex-start;
+  }
+
+  .reviews__rating-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .reviews__card-stars {
+    display: inline-flex;
+    gap: 1px;
+  }
+
+  .reviews__card-stars .reviews__star { width: 16px; height: 16px; }
+
+  .reviews__author-time {
+    font-size: 0.78rem;
+    color: var(--color-ink-soft);
+  }
+
+  .reviews__text {
+    font-family: var(--font-serif);
+    font-size: 1.08rem;
+    line-height: 1.6;
+    color: var(--color-ink);
+  }
+
+  .reviews__cta { text-align: center; }
+
+  @media (max-width: 1024px) {
+    .reviews__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 560px) {
+    .reviews__grid { grid-template-columns: 1fr; }
+  }
+</style>

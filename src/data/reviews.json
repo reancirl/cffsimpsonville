@@ -1,0 +1,37 @@
+{
+  "rating": 4.4,
+  "total": 2242,
+  "reviewUrl": "https://g.co/kgs/u9zrz3P",
+  "reviews": [
+    {
+      "author": "Anthony Fain",
+      "meta": "Local Guide · 91 reviews",
+      "rating": 5,
+      "time": "a week ago",
+      "image": "/reviews/Anthony.png",
+      "text": "Delicious food and great service — always a nice experience whether we go for lunch or dinner. Never had to ask for a refill or a box because they were already on it. Highly recommend this place!"
+    },
+    {
+      "author": "Jada Green",
+      "meta": "5 reviews",
+      "rating": 5,
+      "time": "2 weeks ago",
+      "text": "Today was my first time eating here and it was 10/10 — everything was so good. Service was great, the food was hot and fresh. I don't know why I hadn't eaten here sooner. Can't wait to go back!"
+    },
+    {
+      "author": "Becky Ryan",
+      "meta": "7 reviews",
+      "rating": 5,
+      "time": "a week ago",
+      "image": "/reviews/Becky.png",
+      "text": "Have enjoyed this place for a long time! Good food, good people — can't beat it!"
+    },
+    {
+      "author": "Jackie Julian Sparling",
+      "meta": "Local Guide · 31 reviews",
+      "rating": 5,
+      "time": "3 weeks ago",
+      "text": "Great food and excellent service."
+    }
+  ]
+}
