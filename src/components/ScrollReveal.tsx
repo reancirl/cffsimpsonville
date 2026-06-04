@@ -57,18 +57,17 @@ export default function ScrollReveal() {
       // Heading words split reveal
       gsap.utils.toArray<HTMLElement>('[data-reveal-heading]').forEach((heading) => {
         const text = heading.textContent || '';
-        const words = text.split(' ').map((w) => `<span class="word"><span class="word-inner">${w}</span></span>`).join(' ');
+        // Build the split markup with styles inline so the browser performs a
+        // single parse/layout instead of read→write thrashing per word.
+        const words = text
+          .split(' ')
+          .map(
+            (w) =>
+              `<span class="word" style="display:inline-block;overflow:hidden;padding-bottom:0.08em;margin-right:0.18em"><span class="word-inner" style="display:inline-block">${w}</span></span>`
+          )
+          .join(' ');
         heading.innerHTML = words;
         const inners = heading.querySelectorAll('.word-inner');
-        heading.querySelectorAll<HTMLElement>('.word').forEach((w) => {
-          w.style.display = 'inline-block';
-          w.style.overflow = 'hidden';
-          w.style.paddingBottom = '0.08em';
-          w.style.marginRight = '0.18em';
-        });
-        inners.forEach((i) => {
-          (i as HTMLElement).style.display = 'inline-block';
-        });
         gsap.fromTo(
           inners,
           { y: '110%' },
@@ -139,10 +138,25 @@ export default function ScrollReveal() {
         });
       });
 
-      ScrollTrigger.refresh();
     });
 
-    return () => ctx.revert();
+    // Defer the (layout-measuring) refresh off the initial render path so it
+    // doesn't force a synchronous reflow during load. Run it once fonts have
+    // settled to avoid a second refresh when metrics shift.
+    let refreshId = 0;
+    const deferRefresh = () => {
+      refreshId = requestAnimationFrame(() => ScrollTrigger.refresh());
+    };
+    if (document.fonts && document.fonts.status !== 'loaded') {
+      document.fonts.ready.then(deferRefresh);
+    } else {
+      deferRefresh();
+    }
+
+    return () => {
+      cancelAnimationFrame(refreshId);
+      ctx.revert();
+    };
   }, []);
 
   return null;

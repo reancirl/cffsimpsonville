@@ -52,12 +52,15 @@
       </div>
 
       <div class="visit__card visit__card--map" data-reveal>
-        <div class="visit__map-img" data-image-reveal>
-          <img src="/images/storefront.jpg" alt="Carolina Fine Foods exterior on Main Street, Simpsonville" />
-          <div class="visit__map-pin">
-            <div class="visit__map-pin-dot"></div>
-            <span>Carolina Fine Foods</span>
-          </div>
+        <div class="visit__map-embed">
+          <iframe
+            class="visit__map-frame"
+            title="Map showing Carolina Fine Foods at 625 SE Main Street, Simpsonville, SC"
+            src="https://www.google.com/maps?q=625%20SE%20Main%20St%20Simpsonville%20SC%2029681&z=15&output=embed"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen
+          ></iframe>
         </div>
         <div class="visit__map-info">
           <h3>Where we are</h3>
@@ -65,8 +68,8 @@
             625 SE Main Street<br />
             Simpsonville, South Carolina 29681
           </address>
-          <a href="https://maps.google.com/?q=625+SE+Main+St+Simpsonville+SC+29681" target="_blank" rel="noopener" class="visit__map-link">
-            Open in Maps
+          <a href="https://www.google.com/maps/dir/?api=1&destination=625+SE+Main+St+Simpsonville+SC+29681" target="_blank" rel="noopener" class="visit__map-link">
+            Get directions
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4">
               <path d="M6 2h8v8M14 2L6 10M3 5v9h9"/>
             </svg>
@@ -236,55 +239,20 @@
     flex-direction: column;
   }
 
-  .visit__map-img {
+  .visit__map-embed {
     position: relative;
     height: 280px;
     overflow: hidden;
+    border-bottom: 1px solid rgba(185, 145, 78, 0.35);
   }
 
-  .visit__map-img img {
+  .visit__map-frame {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    transition: transform 1.2s var(--easing);
-  }
-
-  .visit__card--map:hover .visit__map-img img {
-    transform: scale(1.06);
-  }
-
-  .visit__map-pin {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    background: rgba(26, 20, 16, 0.85);
-    color: var(--color-bone);
-    padding: 0.75rem 1.25rem;
-    border-radius: 999px;
-    font-family: var(--font-sans);
-    font-size: 0.72rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    backdrop-filter: blur(8px);
-  }
-
-  .visit__map-pin-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--color-gold);
-    box-shadow: 0 0 0 4px rgba(185, 145, 78, 0.3);
-    animation: pinPulse 2s ease-out infinite;
-  }
-
-  @keyframes pinPulse {
-    0% { box-shadow: 0 0 0 0 rgba(185, 145, 78, 0.6); }
-    100% { box-shadow: 0 0 0 16px rgba(185, 145, 78, 0); }
+    border: 0;
+    display: block;
+    /* Warm the map slightly so it sits in the cream/gold palette */
+    filter: saturate(0.92) contrast(1.02);
   }
 
   .visit__map-info {

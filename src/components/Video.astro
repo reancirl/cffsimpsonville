@@ -11,13 +11,36 @@ const posterFrame = `${srcMp4}#t=0.1`;
   <div class="film__bg-texture" aria-hidden="true"></div>
 
   <div class="container film__inner">
-    <header class="film__head" data-reveal>
-      <span class="eyebrow eyebrow--light">Watch</span>
-      <h2 data-reveal-heading>The most authentic Southern cuisine.</h2>
-      <p>
-        Two minutes inside the kitchen on Main Street &mdash; the biscuits, the buffet, and forty-two years of hands that remember.
-      </p>
-    </header>
+    <div class="film__content">
+      <header class="film__head" data-reveal>
+        <span class="eyebrow eyebrow--light">Watch</span>
+        <h2 data-reveal-heading>The most authentic Southern cuisine.</h2>
+        <p>
+          Two minutes inside the kitchen on Main Street &mdash; the biscuits, the buffet, and forty-two years of hands that remember.
+        </p>
+      </header>
+
+      <div class="film__featured" data-reveal>
+        <span class="eyebrow eyebrow--light film__featured-badge">As featured on B93.7</span>
+      </div>
+
+      <div class="film__endorse" data-reveal>
+        <div class="film__endorse-row">
+          <img
+            class="film__endorse-img"
+            src="/images/mac-n-cheese.webp"
+            alt="A bowl of Carolina Fine Foods' famous mac and cheese"
+            width="192"
+            height="144"
+            loading="lazy"
+          />
+          <p class="film__endorse-text">
+            When B93.7&rsquo;s Big Dave stopped by, he went straight for the <em>famous mac and cheese</em>. Press play to see his reaction.
+          </p>
+        </div>
+        <p class="film__endorse-attrib">Featured segment &mdash; B93.7 &middot; Simpsonville, SC</p>
+      </div>
+    </div>
 
     <figure class="film__frame" data-image-reveal>
       <video
@@ -62,18 +85,28 @@ const posterFrame = `${srcMp4}#t=0.1`;
     pointer-events: none;
   }
 
-  .film__inner { position: relative; }
+  .film__inner {
+    position: relative;
+    max-width: 1560px;
+    display: grid;
+    grid-template-columns: minmax(300px, 380px) minmax(0, 1fr);
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .film__content { max-width: 460px; }
 
   .film__head {
-    text-align: center;
-    max-width: 720px;
-    margin: 0 auto 3.5rem;
+    text-align: left;
+    margin: 0 0 1.75rem;
   }
 
   .film__head .eyebrow { margin-bottom: 1rem; }
 
   .film__head h2 {
     color: var(--color-bone);
+    font-size: clamp(2rem, 2.4vw, 2.7rem);
+    line-height: 1.05;
     margin-bottom: 1.25rem;
   }
 
@@ -88,10 +121,14 @@ const posterFrame = `${srcMp4}#t=0.1`;
   .eyebrow--light { color: var(--color-gold-soft); }
   .eyebrow--light::before { background: var(--color-gold-soft); }
 
+  /* "As featured on B93.7" badge, sits with the copy beside the player */
+  .film__featured {
+    text-align: left;
+    margin-bottom: 1.5rem;
+  }
+
   .film__frame {
     position: relative;
-    max-width: 1000px;
-    margin: 0 auto;
     aspect-ratio: 16 / 9;
     border-radius: 2px;
     overflow: hidden;
@@ -171,9 +208,91 @@ const posterFrame = `${srcMp4}#t=0.1`;
 
   .film__frame.is-playing .film__caption { opacity: 0; }
 
+  /* Endorsement copy + attribution, beside the player */
+  .film__endorse {
+    margin: 1.75rem 0 0;
+    text-align: left;
+  }
+
+  .film__endorse-row {
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .film__endorse-img {
+    width: 92px;
+    height: 92px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid var(--color-gold-soft);
+    box-shadow: 0 10px 24px -10px rgba(0, 0, 0, 0.6), inset 0 0 0 4px rgba(74, 18, 28, 0.55);
+  }
+
+  .film__endorse-text {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.15rem;
+    line-height: 1.6;
+    color: var(--color-bone);
+  }
+
+  .film__endorse-text em {
+    font-style: italic;
+    color: var(--color-gold-soft);
+  }
+
+  .film__endorse-attrib {
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-gold-soft);
+  }
+
+  @media (max-width: 1024px) {
+    .film__inner {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+    .film__content {
+      max-width: 720px;
+      margin: 0 auto;
+      order: -1;
+    }
+    .film__head,
+    .film__featured,
+    .film__endorse { text-align: center; }
+    .film__featured-badge { justify-content: center; }
+    .film__endorse-row { justify-content: center; }
+    .film__head h2 { font-size: clamp(2.2rem, 4.5vw, 3.4rem); }
+    .film__frame {
+      max-width: 1000px;
+      margin: 0 auto;
+      width: 100%;
+    }
+  }
+
   @media (max-width: 600px) {
     .film__play-ring { width: 68px; height: 68px; }
     .film__play-label { margin-top: 2rem; }
+    /* Stack the mac & cheese photo above the caption so it reads cleanly */
+    .film__endorse-row {
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .film__endorse-img { width: 88px; height: 88px; }
+  }
+
+  @media (max-width: 380px) {
+    .film__featured-badge {
+      font-size: 0.66rem;
+      letter-spacing: 0.24em;
+    }
+    .film__endorse-text { font-size: 1.05rem; }
+    .film__endorse-img { width: 72px; height: 72px; }
   }
 </style>
 

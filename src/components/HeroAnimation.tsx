@@ -62,17 +62,27 @@ export default function HeroAnimation() {
           stagger: 0.15,
         }, '-=0.9');
 
-      // Subtle parallax on image
+      // Subtle parallax on image — desktop pointers only. Cache viewport size
+      // and update on resize so mousemove never reads layout (avoids reflow).
+      const finePointer = window.matchMedia('(pointer: fine)').matches;
       const heroImg = document.querySelector<HTMLElement>('.hero__image-inner');
+      let vw = window.innerWidth;
+      let vh = window.innerHeight;
+      const onResize = () => {
+        vw = window.innerWidth;
+        vh = window.innerHeight;
+      };
       const onMove = (e: MouseEvent) => {
-        const { innerWidth, innerHeight } = window;
-        const x = (e.clientX / innerWidth - 0.5) * 14;
-        const y = (e.clientY / innerHeight - 0.5) * 14;
+        const x = (e.clientX / vw - 0.5) * 14;
+        const y = (e.clientY / vh - 0.5) * 14;
         if (heroImg) {
           gsap.to(heroImg, { x, y, duration: 1.2, ease: 'power3.out' });
         }
       };
-      window.addEventListener('mousemove', onMove);
+      if (finePointer && heroImg) {
+        window.addEventListener('mousemove', onMove);
+        window.addEventListener('resize', onResize);
+      }
 
       // Continuous gentle float for the medallion
       gsap.to('.hero__medallion', {
@@ -83,7 +93,10 @@ export default function HeroAnimation() {
         ease: 'sine.inOut',
       });
 
-      return () => window.removeEventListener('mousemove', onMove);
+      return () => {
+        window.removeEventListener('mousemove', onMove);
+        window.removeEventListener('resize', onResize);
+      };
     });
 
     return () => ctx.revert();

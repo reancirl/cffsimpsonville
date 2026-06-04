@@ -61,7 +61,17 @@ import HeroAnimation from './HeroAnimation.tsx';
     <div class="hero__visual">
       <div class="hero__image-frame">
         <div class="hero__image-inner">
-          <img src="/images/hero-1.jpg" alt="Carolina Fine Foods classic plated dinner" />
+          <img
+            src="/images/hero-1.webp"
+            srcset="/images/hero-1-600.webp 600w, /images/hero-1.webp 960w"
+            sizes="(max-width: 1024px) min(480px, 90vw), 480px"
+            alt="Carolina Fine Foods classic plated dinner"
+            width="960"
+            height="640"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+          />
           <div class="hero__image-overlay"></div>
         </div>
         <div class="hero__floating hero__floating--badge">
@@ -414,10 +424,16 @@ import HeroAnimation from './HeroAnimation.tsx';
 
   @media (max-width: 600px) {
     .hero__floating--badge {
-      width: 110px;
-      height: 110px;
-      top: -20px;
-      right: -10px;
+      width: 112px;
+      height: 112px;
+      top: -18px;
+      right: 0;
+    }
+    .hero__medallion { padding: 0.5rem; }
+    .hero__medallion-top,
+    .hero__medallion-bot {
+      font-size: 0.46rem;
+      letter-spacing: 0.14em;
     }
     .hero__medallion-year { font-size: 1.7rem; }
     .hero__floating--quote {
