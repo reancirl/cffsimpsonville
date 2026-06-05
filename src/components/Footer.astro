@@ -1,12 +1,21 @@
 ---
+import { NAV_LINKS, BUSINESS } from '../config/site';
 ---
 
 <footer class="footer">
   <div class="container footer__inner">
     <div class="footer__brand">
-      <div class="footer__mark">CFF</div>
-      <h3 class="footer__name">Carolina Fine Foods</h3>
+      <img src="/images/logo-footer.png" alt="Carolina Fine Foods" class="footer__logo" width="250" height="148" />
       <p class="footer__tag">The most authentic Southern cuisine, family-owned since 1983.</p>
+    </div>
+
+    <div class="footer__col">
+      <h4>Explore</h4>
+      <ul class="footer__nav">
+        {NAV_LINKS.map((link) => (
+          <li><a href={link.href}>{link.label}</a></li>
+        ))}
+      </ul>
     </div>
 
     <div class="footer__col">
@@ -15,7 +24,7 @@
         625 SE Main St<br />
         Simpsonville, SC 29681
       </address>
-      <a href="https://maps.google.com/?q=625+SE+Main+St+Simpsonville+SC+29681" target="_blank" rel="noopener" class="footer__link">Get directions →</a>
+      <a href={BUSINESS.directionsUrl} target="_blank" rel="noopener" class="footer__link">Get directions →</a>
     </div>
 
     <div class="footer__col">
@@ -29,8 +38,8 @@
 
     <div class="footer__col">
       <h4>Contact</h4>
-      <a href="tel:+18649673335" class="footer__phone">+1 864-967-3335</a>
-      <a href="mailto:cffsimpsonville@gmail.com">cffsimpsonville@gmail.com</a>
+      <a href={`tel:${BUSINESS.phone}`} class="footer__phone">+1 {BUSINESS.phoneDisplay}</a>
+      <a href={`mailto:${BUSINESS.email}`}>{BUSINESS.email}</a>
       <div class="footer__social">
         <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.892h-2.33v6.987C18.343 21.128 22 16.991 22 12z"/></svg>
@@ -79,34 +88,25 @@
 
   .footer__inner {
     display: grid;
-    grid-template-columns: 1.3fr 0.9fr 1.1fr 1fr auto;
-    gap: 4rem;
+    grid-template-columns: 1.3fr 0.8fr 0.9fr 1.1fr 1fr auto;
+    gap: 3rem;
     padding-bottom: 5rem;
   }
+
+  .footer__nav {
+    list-style: none;
+  }
+
+  .footer__nav li { margin-bottom: 0.2rem; }
 
   .footer__brand {
     max-width: 320px;
   }
 
-  .footer__mark {
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    background: var(--color-maroon);
-    color: var(--color-bone);
-    display: grid;
-    place-items: center;
-    font-family: var(--font-display);
-    font-weight: 600;
-    border: 1px solid var(--color-gold);
-    box-shadow: inset 0 0 0 4px var(--color-maroon);
+  .footer__logo {
+    height: 64px;
+    width: auto;
     margin-bottom: 1.5rem;
-  }
-
-  .footer__name {
-    color: var(--color-bone);
-    font-size: 1.6rem;
-    margin-bottom: 0.75rem;
   }
 
   .footer__tag {

@@ -1,0 +1,51 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Reviews from '../components/Reviews.astro';
+import ScrollReveal from '../components/ScrollReveal.tsx';
+import reviewsData from '../data/reviews.json';
+import { SITE, BUSINESS } from '../config/site';
+import { breadcrumb, webPage } from '../config/schema';
+
+const title = 'Reviews — Rated 4.4★ by the Upstate | Carolina Fine Foods';
+const description =
+  'See why Simpsonville loves Carolina Fine Foods — 4.4 stars across 2,000+ Google reviews for our Southern buffet, friendly service and homemade comfort food.';
+
+// AggregateRating + a few featured Reviews, attached to the Restaurant entity.
+const ratingSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Restaurant',
+  '@id': `${SITE.url}/#restaurant`,
+  name: BUSINESS.name,
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: reviewsData.rating,
+    reviewCount: reviewsData.total,
+    bestRating: 5,
+    worstRating: 1,
+  },
+  review: reviewsData.reviews.map((r) => ({
+    '@type': 'Review',
+    author: { '@type': 'Person', name: r.author },
+    reviewRating: {
+      '@type': 'Rating',
+      ratingValue: r.rating,
+      bestRating: 5,
+      worstRating: 1,
+    },
+    reviewBody: r.text,
+  })),
+};
+
+const schema = [
+  webPage(title, '/reviews', description),
+  breadcrumb([{ name: 'Reviews', path: '/reviews' }]),
+  ratingSchema,
+];
+---
+
+<Layout title={title} description={description} path="/reviews" schema={schema}>
+  <div class="page-top">
+    <Reviews headingLevel="h1" />
+  </div>
+  <ScrollReveal client:load />
+</Layout>

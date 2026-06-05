@@ -1,0 +1,60 @@
+---
+// Emits JSON-LD structured data. The Restaurant schema is rendered on every
+// page (good for the local knowledge panel); pages can pass additional schema
+// objects (BreadcrumbList, Menu, Review, etc.) via the `extra` prop.
+import { SITE, BUSINESS } from '../../config/site';
+
+interface Props {
+  /** Absolute or root-relative URL of the current page. */
+  url: string;
+  /** Extra schema.org objects to append (already shaped as JS objects). */
+  extra?: Record<string, unknown>[];
+}
+
+const { url, extra = [] } = Astro.props;
+const abs = (path: string) => new URL(path, SITE.url).toString();
+
+const restaurant = {
+  '@context': 'https://schema.org',
+  '@type': 'Restaurant',
+  '@id': `${SITE.url}/#restaurant`,
+  name: BUSINESS.name,
+  url: SITE.url,
+  image: abs(SITE.ogImage),
+  logo: abs('/images/logo.png'),
+  telephone: BUSINESS.phone,
+  email: BUSINESS.email,
+  priceRange: BUSINESS.priceRange,
+  servesCuisine: BUSINESS.cuisine,
+  foundingDate: BUSINESS.founded,
+  hasMenu: abs('/menu/'),
+  acceptsReservations: 'True',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: BUSINESS.address.street,
+    addressLocality: BUSINESS.address.city,
+    addressRegion: BUSINESS.address.region,
+    postalCode: BUSINESS.address.postalCode,
+    addressCountry: BUSINESS.address.country,
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: BUSINESS.geo.latitude,
+    longitude: BUSINESS.geo.longitude,
+  },
+  hasMap: BUSINESS.mapUrl,
+  openingHoursSpecification: BUSINESS.hours.map((h) => ({
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: h.days,
+    opens: h.opens,
+    closes: h.closes,
+  })),
+  sameAs: [BUSINESS.reviewUrl],
+};
+
+const blocks = [restaurant, ...extra];
+---
+
+{blocks.map((block) => (
+  <script type="application/ld+json" set:html={JSON.stringify(block)} />
+))}

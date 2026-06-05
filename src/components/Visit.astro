@@ -1,11 +1,16 @@
 ---
+interface Props {
+  headingLevel?: 'h1' | 'h2';
+}
+const { headingLevel = 'h2' } = Astro.props;
+const Heading = headingLevel;
 ---
 
 <section class="visit section" id="visit">
   <div class="container visit__inner">
     <div class="visit__head" data-reveal>
       <span class="eyebrow">Pay us a visit</span>
-      <h2 data-reveal-heading>Pull up a chair on Main Street.</h2>
+      <Heading data-reveal-heading>Pull up a chair on Main Street.</Heading>
       <p>
         Just off the heart of Simpsonville, you&rsquo;ll find a porch light, a hot buffet, and somebody who remembers your name. Three private rooms for the family, the church group, the whole reunion &mdash; no extra charge.
       </p>

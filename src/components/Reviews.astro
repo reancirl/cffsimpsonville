@@ -3,6 +3,12 @@
 // To update: edit src/data/reviews.json (review list + the rating / total figures).
 import reviewsData from '../data/reviews.json';
 
+interface Props {
+  headingLevel?: 'h1' | 'h2';
+}
+const { headingLevel = 'h2' } = Astro.props;
+const Heading = headingLevel;
+
 const { rating, total, reviewUrl } = reviewsData;
 const REVIEWS = reviewsData.reviews;
 
@@ -22,7 +28,7 @@ const STAR_PATH = 'M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L
   <div class="container">
     <header class="reviews__header" data-reveal>
       <span class="eyebrow">Kind Words</span>
-      <h2 data-reveal-heading>Loved by the Upstate.</h2>
+      <Heading data-reveal-heading>Loved by the Upstate.</Heading>
 
       <div class="reviews__summary">
         <span class="reviews__rating-num">{rating.toFixed(1)}</span>

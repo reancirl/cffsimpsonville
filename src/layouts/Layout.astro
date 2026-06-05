@@ -2,16 +2,37 @@
 import '../styles/global.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import Schema from '../components/seo/Schema.astro';
+import { SITE } from '../config/site';
 
 interface Props {
   title?: string;
   description?: string;
+  /** Path-only, e.g. "/menu". Defaults to the current request path. */
+  path?: string;
+  /** Per-page social share image (root-relative). Falls back to SITE.ogImage. */
+  image?: string;
+  /** Extra JSON-LD blocks (breadcrumbs, menu, reviews, …). */
+  schema?: Record<string, unknown>[];
+  /** Set true on pages that shouldn't be indexed. */
+  noindex?: boolean;
 }
 
 const {
   title = 'Carolina Fine Foods — Authentic Southern Cuisine in Simpsonville, SC',
   description = "Family-owned since 1983. Over 200 homemade Southern dishes — recipes passed down through generations. Lunch & breakfast buffet in Simpsonville, SC.",
+  path,
+  image = SITE.ogImage,
+  schema = [],
+  noindex = false,
 } = Astro.props;
+
+// Normalize to a trailing slash so canonical URLs match the generated routes
+// and the sitemap (Astro emits /menu/ directories by default).
+const rawPath = path ?? Astro.url.pathname;
+const pagePath = rawPath === '/' ? '/' : `/${rawPath.replace(/^\/|\/$/g, '')}/`;
+const canonical = new URL(pagePath, SITE.url).toString();
+const ogImage = new URL(image, SITE.url).toString();
 ---
 
 <!doctype html>
@@ -20,12 +41,30 @@ const {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/png" href="/images/logo.png" />
+
+    <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.name} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content={SITE.locale} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
     <meta name="theme-color" content="#6b1d2a" />
-    <title>{title}</title>
+
+    <Schema url={canonical} extra={schema} />
   </head>
   <body>
     <Nav />

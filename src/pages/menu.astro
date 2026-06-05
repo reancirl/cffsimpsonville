@@ -1,0 +1,72 @@
+---
+import Layout from '../layouts/Layout.astro';
+import MenuSection from '../components/Menu.astro';
+import FullMenu from '../components/FullMenu.astro';
+import MenuClose from '../components/MenuClose.astro';
+import ScrollReveal from '../components/ScrollReveal.tsx';
+import { SITE } from '../config/site';
+import { breadcrumb, webPage } from '../config/schema';
+
+const title = 'Menu — 200+ Southern Dishes | Carolina Fine Foods, Simpsonville SC';
+const description =
+  'Explore the Carolina Fine Foods menu: hamburger steak, fried chicken, mac & cheese, banana pudding and 200+ homemade Southern dishes on our daily buffet in Simpsonville, SC.';
+
+// Full category + dish list, kept in sync with FullMenu.astro so the structured
+// data exposes every indexable dish name (not just the curated highlights).
+const fullSections = [
+  { name: 'Appetizers', description: 'Southern starters, hot and crispy.', items: ['Hush Puppies', 'Fried Okra', 'Fried Green Tomatoes', 'Onion Rings', 'Loaded Fries', 'Cheese Sticks'] },
+  { name: 'Salads & Salad Bar', description: 'Fresh greens and our full salad bar, Mon–Fri 11–3.', items: ['House Salad', 'Chef Salad', 'Garden Salad', 'Chicken Tender Salad', 'Cobb Salad', 'Salad Bar (Mon–Fri)'] },
+  { name: 'Breakfast', description: 'Full breakfast buffet, Sat–Sun 7–11am.', items: ['Country Ham & Eggs', 'Bacon & Eggs Plate', 'Sausage Biscuit', 'Pancakes & Syrup', 'Grits', 'Hash Browns', 'Biscuits & Gravy', 'French Toast'] },
+  { name: 'Seafood', description: 'A long-running Friday-night favorite.', items: ['Fried Whiting', 'Fried Catfish', 'Fried Shrimp', 'Seafood Platter', 'Hush Puppies', 'Shrimp & Grits'] },
+  { name: 'Home-Cooked Vegetables', description: 'Real Southern sides cooked the old way.', items: ['Collard Greens', 'Mac & Cheese', 'Mashed Potatoes & Gravy', 'Green Beans', 'Corn', 'Black-Eyed Peas', 'Cabbage', 'Fried Okra', 'Lima Beans', 'Yams', 'Pinto Beans', 'Squash Casserole'] },
+  { name: 'Home-Cooked Meats', description: 'Protein plates with gravy, sides, and a dinner roll.', items: ['Hamburger Steak', 'Fried Chicken', 'Turkey with Gravy', 'Chicken Livers', 'Country Fried Steak', 'Meatloaf', 'Pork Chops', 'Liver & Onions', 'Roast Beef'] },
+  { name: 'Steaks', description: 'Char-grilled, with classic Southern sides.', items: ['Ribeye Steak', 'Sirloin Steak', 'T-Bone Steak', 'Steak & Shrimp Combo', 'Chopped Steak'] },
+  { name: 'Burgers & Dogs', description: 'Home-cooked, never fast food.', items: ['Cheeseburger', 'Bacon Cheeseburger', 'Double Cheeseburger', 'Hamburger Steak Plate', 'All-Beef Hot Dog', 'Chili Dog', 'Slaw Dog'] },
+  { name: 'Sandwiches', description: 'Made to order, served with fries or a Southern side.', items: ['Grilled Chicken Sandwich', 'Chicken Tender Sandwich', 'Fish Sandwich', 'BLT', 'Club Sandwich', 'Pimento Cheese', 'Patty Melt'] },
+  { name: 'Kids Menu', description: 'Smaller portions the little ones will finish.', items: ['Kids Cheeseburger', 'Chicken Tenders & Fries', 'Mac & Cheese Plate', 'Grilled Cheese', 'Kids Hot Dog'] },
+  { name: 'Desserts', description: 'Made fresh in our kitchen.', items: ['Famous Banana Pudding', 'Peach Cobbler', 'Homemade Pies', 'Pound Cake', 'Coconut Cake', 'Chocolate Cake', 'Apple Cobbler'] },
+  { name: 'Drinks', description: 'Sweet tea, coffee, and more.', items: ['Sweet Tea', 'Unsweet Tea', 'Coffee', 'Lemonade', 'Soft Drinks', 'Bottled Water', 'Milk'] },
+];
+
+const menuSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Menu',
+  name: 'Carolina Fine Foods Menu',
+  url: new URL('/menu', SITE.url).toString(),
+  inLanguage: 'en-US',
+  description,
+  hasMenuSection: [
+    { name: 'From the Kitchen', description: 'Slow-cooked, hand-prepared Southern entrées' },
+    { name: 'Buffet & Garden', description: 'Two hundred dishes daily and a fresh salad bar' },
+    { name: 'Sweet Endings', description: 'Banana pudding, peach cobbler and pecan pie' },
+  ]
+    .map((s) => ({ '@type': 'MenuSection', name: s.name, description: s.description }))
+    .concat(
+      fullSections.map((s) => ({
+        '@type': 'MenuSection',
+        name: s.name,
+        description: s.description,
+        hasMenuItem: s.items.map((name) => ({ '@type': 'MenuItem', name })),
+      }))
+    ),
+  provider: { '@id': `${SITE.url}/#restaurant` },
+};
+
+const schema = [
+  webPage(title, '/menu', description),
+  breadcrumb([{ name: 'Menu', path: '/menu' }]),
+  menuSchema,
+];
+---
+
+<Layout title={title} description={description} path="/menu" schema={schema}>
+  <div class="page-top">
+    <!-- A. Editorial intro + curated 3-column highlights (lead-in) -->
+    <MenuSection variant="full" headingLevel="h1" showFooter={false} />
+    <!-- B. Complete menu — every category & dish as serif lists -->
+    <FullMenu />
+    <!-- C + D. Daily-specials note and closing CTAs -->
+    <MenuClose />
+  </div>
+  <ScrollReveal client:load />
+</Layout>

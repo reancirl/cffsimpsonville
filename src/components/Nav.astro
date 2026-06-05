@@ -1,26 +1,27 @@
 ---
+import { NAV_LINKS, BUSINESS } from '../config/site';
+
+// Mark the current page so the matching nav link can highlight.
+const current = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isActive = (href: string) => current === href.replace(/\/$/, '');
 ---
 
 <header class="nav" id="site-nav">
   <div class="nav__inner">
-    <a href="#top" class="nav__brand">
-      <span class="nav__brand-mark">CFF</span>
-      <span class="nav__brand-text">
-        <span class="nav__brand-name">Carolina Fine Foods</span>
-        <span class="nav__brand-since">Est. 1983 · Simpsonville, SC</span>
-      </span>
+    <a href="/" class="nav__brand" aria-label="Carolina Fine Foods — home">
+      <img src="/images/logo.png" alt="Carolina Fine Foods" class="nav__brand-logo" width="450" height="266" />
+      <span class="nav__brand-since">Est. 1983 · Simpsonville, SC</span>
     </a>
 
     <nav class="nav__links" aria-label="Primary">
-      <a href="#story">Our Story</a>
-      <a href="#film">Film</a>
-      <a href="#menu">Menu</a>
-      <a href="#gallery">Gallery</a>
-      <a href="#reviews">Reviews</a>
-      <a href="#visit">Visit</a>
+      {NAV_LINKS.map((link) => (
+        <a href={link.href} class:list={[{ 'is-active': isActive(link.href) }]} aria-current={isActive(link.href) ? 'page' : undefined}>
+          {link.label}
+        </a>
+      ))}
     </nav>
 
-    <a href="https://order.online/business/-166132?visitorId=288f419e8b49d0ac588708" target="_blank" rel="noopener" class="nav__cta">
+    <a href={BUSINESS.orderUrl} target="_blank" rel="noopener" class="nav__cta">
       <span>Reserve · Order</span>
       <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4">
         <path d="M3 8h10M9 4l4 4-4 4" />
@@ -34,13 +35,12 @@
   </div>
 
   <nav class="nav__mobile" id="nav-mobile" aria-label="Mobile">
-    <a href="#story">Our Story</a>
-    <a href="#film">Film</a>
-    <a href="#menu">Menu</a>
-    <a href="#gallery">Gallery</a>
-    <a href="#reviews">Reviews</a>
-    <a href="#visit">Visit</a>
-    <a href="https://order.online/business/-166132?visitorId=288f419e8b49d0ac588708" target="_blank" rel="noopener" class="nav__mobile-cta">
+    {NAV_LINKS.map((link) => (
+      <a href={link.href} class:list={[{ 'is-active': isActive(link.href) }]} aria-current={isActive(link.href) ? 'page' : undefined}>
+        {link.label}
+      </a>
+    ))}
+    <a href={BUSINESS.orderUrl} target="_blank" rel="noopener" class="nav__mobile-cta">
       Reserve · Order
       <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4">
         <path d="M3 8h10M9 4l4 4-4 4" />
@@ -82,38 +82,20 @@
 
   .nav__brand {
     display: flex;
-    align-items: center;
-    gap: 0.85rem;
-  }
-
-  .nav__brand-mark {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background: var(--color-maroon);
-    color: var(--color-bone);
-    display: grid;
-    place-items: center;
-    font-family: var(--font-display);
-    font-size: 0.95rem;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    border: 1px solid var(--color-gold);
-    box-shadow: inset 0 0 0 3px var(--color-maroon), 0 0 0 1px var(--color-gold-soft);
-  }
-
-  .nav__brand-text {
-    display: flex;
     flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2rem;
     line-height: 1.1;
   }
 
-  .nav__brand-name {
-    font-family: var(--font-display);
-    font-size: 1.05rem;
-    color: var(--color-ink);
-    font-weight: 500;
-    letter-spacing: 0.005em;
+  .nav__brand-logo {
+    height: 46px;
+    width: auto;
+    transition: height 0.5s cubic-bezier(0.65, 0.05, 0.36, 1);
+  }
+
+  .nav.is-scrolled .nav__brand-logo {
+    height: 38px;
   }
 
   .nav__brand-since {
@@ -152,11 +134,13 @@
     transition: width 0.4s var(--easing);
   }
 
-  .nav__links a:hover {
+  .nav__links a:hover,
+  .nav__links a.is-active {
     color: var(--color-maroon);
   }
 
-  .nav__links a:hover::after {
+  .nav__links a:hover::after,
+  .nav__links a.is-active::after {
     width: 100%;
   }
 
@@ -242,7 +226,8 @@
     border-bottom: 1px solid rgba(26, 20, 16, 0.08);
   }
 
-  .nav__mobile a:hover { color: var(--color-maroon); }
+  .nav__mobile a:hover,
+  .nav__mobile a.is-active { color: var(--color-maroon); }
 
   .nav__mobile-cta {
     display: inline-flex;
@@ -273,7 +258,8 @@
   }
 
   @media (max-width: 640px) {
-    .nav__brand-text { display: none; }
+    .nav__brand-since { display: none; }
+    .nav__brand-logo { height: 38px; }
     .nav__cta span { display: none; }
     .nav__cta { width: 38px; height: 38px; padding: 0; justify-content: center; }
   }

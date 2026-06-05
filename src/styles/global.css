@@ -22,6 +22,10 @@
   --radius-card: 2px;
 
   --easing: cubic-bezier(0.65, 0.05, 0.36, 1);
+
+  /* Height of the fixed site header once scrolled (the compact state).
+     Single source of truth for sticky offsets and anchor scroll-margins. */
+  --header-height: 4.5rem;
 }
 
 * {
@@ -35,6 +39,17 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  /* Keep anchored sections clear of the fixed site header on any scroll
+     (anchor jumps, keyboard, find-in-page). Per-section sticky-bar offsets
+     add to this where needed (e.g. the menu's jump-nav rail). */
+  scroll-padding-top: var(--header-height);
+}
+
+/* Honour users who've opted out of motion: no smooth-scroll animation. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 body {
@@ -132,6 +147,12 @@ button {
 .section {
   padding: clamp(5rem, 10vw, 9rem) 0;
   position: relative;
+}
+
+/* Sub-pages open directly with a .section under the fixed nav; this clears it
+   so the first heading isn't tucked behind the bar. */
+.page-top {
+  padding-top: var(--header-height);
 }
 
 .btn {

@@ -1,5 +1,12 @@
 ---
+import { YEARS, YEARS_WORD } from '../config/years';
 
+interface Props {
+  /** Heading tag for the section title — h1 on the dedicated page, h2 elsewhere. */
+  headingLevel?: 'h1' | 'h2';
+}
+const { headingLevel = 'h2' } = Astro.props;
+const Heading = headingLevel;
 ---
 
 <section class="story section" id="story">
@@ -19,7 +26,7 @@
       </div>
       <div class="story__years" data-reveal>
         <span class="story__years-num">
-          <span data-count="42">0</span>
+          <span data-count={YEARS}>0</span>
         </span>
         <span class="story__years-label"
           >Years of<br />Southern<br />Hospitality</span
@@ -29,9 +36,9 @@
 
     <div class="story__content">
       <span class="eyebrow" data-reveal>Our Story</span>
-      <h2 class="story__title" data-reveal-heading>
-        Grandma&rsquo;s kitchen, kept alive for forty-two summers.
-      </h2>
+      <Heading class="story__title" data-reveal-heading>
+        Grandma&rsquo;s kitchen, kept alive for {YEARS_WORD} summers.
+      </Heading>
       <div class="divider" data-reveal>
         <span></span>
         <svg viewBox="0 0 24 24" fill="currentColor"
@@ -113,7 +120,7 @@
         </div>
       </div>
 
-      <a href="#menu" class="story__more" data-reveal>
+      <a href="/menu" class="story__more" data-reveal>
         Browse the menu
         <svg
           width="18"

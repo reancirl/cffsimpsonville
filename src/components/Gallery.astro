@@ -1,4 +1,14 @@
 ---
+import { YEARS_WORD } from '../config/years';
+
+interface Props {
+  variant?: 'full' | 'teaser';
+  headingLevel?: 'h1' | 'h2';
+}
+const { variant = 'full', headingLevel = 'h2' } = Astro.props;
+const Heading = headingLevel;
+const isTeaser = variant === 'teaser';
+
 const images = [
   { src: '/images/honest.jpg', alt: 'Honest. Wholesome. Quality.', caption: 'Honest. Wholesome. Quality.', span: 'tall' },
   { src: '/images/dish-1.jpg', alt: 'Southern plated dish', caption: 'Made by hand, every morning', span: 'normal' },
@@ -16,15 +26,15 @@ const images = [
     <header class="gallery__header">
       <div>
         <span class="eyebrow" data-reveal>The Spread</span>
-        <h2 data-reveal-heading>A glimpse from our kitchen.</h2>
+        <Heading data-reveal-heading>A glimpse from our kitchen.</Heading>
       </div>
       <p data-reveal data-reveal-delay="0.15">
-        Walk through the door, and you'll smell biscuits before you see the buffet. Here&rsquo;s a quiet look at what waits inside &mdash; the dishes, the porch, the warmth of forty-two years.
+        Walk through the door, and you'll smell biscuits before you see the buffet. Here&rsquo;s a quiet look at what waits inside &mdash; the dishes, the porch, the warmth of {YEARS_WORD} years.
       </p>
     </header>
 
     <div class="gallery__grid" data-reveal-stagger>
-      {images.map((img) => (
+      {(isTeaser ? images.slice(0, 5) : images).map((img) => (
         <figure class={`gallery__item gallery__item--${img.span}`}>
           <div class="gallery__image-wrap">
             <img src={img.src} alt={img.alt} loading="lazy" />
@@ -36,15 +46,24 @@ const images = [
       ))}
     </div>
 
-    <div class="gallery__quote" data-reveal>
-      <svg class="gallery__quote-mark" width="48" height="36" viewBox="0 0 48 36" fill="currentColor">
-        <path d="M0 36V20Q0 12 4 6T16 0v8q-4 0-6 3t-2 7h8v18zm24 0V20q0-8 4-14T40 0v8q-4 0-6 3t-2 7h8v18z"/>
-      </svg>
-      <blockquote>
-        Recipes that we have, have been passed down to us by you. We just try our best to keep them honest.
-      </blockquote>
-      <cite>— The Carolina Family · Simpsonville, SC</cite>
-    </div>
+    {isTeaser ? (
+      <div class="gallery__cta" data-reveal>
+        <a href="/gallery" class="btn btn-primary">
+          View the full gallery
+          <span class="btn-arrow">→</span>
+        </a>
+      </div>
+    ) : (
+      <div class="gallery__quote" data-reveal>
+        <svg class="gallery__quote-mark" width="48" height="36" viewBox="0 0 48 36" fill="currentColor">
+          <path d="M0 36V20Q0 12 4 6T16 0v8q-4 0-6 3t-2 7h8v18zm24 0V20q0-8 4-14T40 0v8q-4 0-6 3t-2 7h8v18z"/>
+        </svg>
+        <blockquote>
+          Recipes that we have, have been passed down to us by you. We just try our best to keep them honest.
+        </blockquote>
+        <cite>— The Carolina Family · Simpsonville, SC</cite>
+      </div>
+    )}
   </div>
 </section>
 
@@ -144,6 +163,11 @@ const images = [
 
   .gallery__item:hover .gallery__caption {
     transform: translateY(0);
+  }
+
+  .gallery__cta {
+    text-align: center;
+    padding: 1rem 0 2rem;
   }
 
   .gallery__quote {

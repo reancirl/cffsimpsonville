@@ -1,0 +1,54 @@
+---
+// Closing note + CTAs for the menu page. The buffet rotates daily, so the note
+// points diners to their server for today's specials; the CTAs let them call
+// the order line or get directions to dine in.
+---
+
+<section class="menu-close section">
+  <div class="container">
+    <div class="menu-close__inner" data-reveal>
+      <p class="menu-close__text">
+        The full menu changes with the day — ask your server about today's specials.
+      </p>
+      <div class="menu-close__actions">
+        <a href="tel:+18649673335" class="btn btn-primary">
+          Call to order
+          <span class="btn-arrow">→</span>
+        </a>
+        <a href="https://maps.google.com/?q=625+SE+Main+St+Simpsonville+SC+29681" target="_blank" rel="noopener" class="btn btn-ghost">
+          Dine with us
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .menu-close {
+    background: var(--color-cream);
+    padding-top: 0;
+  }
+
+  .menu-close__inner {
+    text-align: center;
+    border-top: 1px solid rgba(26, 20, 16, 0.12);
+    padding-top: 3.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .menu-close__text {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--color-ink);
+    margin-bottom: 2rem;
+  }
+
+  .menu-close__actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+</style>
