@@ -4,9 +4,14 @@ import { NAV_LINKS, BUSINESS } from '../config/site';
 // Mark the current page so the matching nav link can highlight.
 const current = Astro.url.pathname.replace(/\/$/, '') || '/';
 const isActive = (href: string) => current === href.replace(/\/$/, '');
+
+// The homepage opens on a full-bleed hero, so the bar floats translucent there.
+// Sub-pages open on content, so the bar stays opaque even at the top — otherwise
+// content bleeds through its translucent lower edge when scrolled back up.
+const isHome = current === '/';
 ---
 
-<header class="nav" id="site-nav">
+<header class:list={['nav', { 'nav--solid': !isHome }]} id="site-nav">
   <div class="nav__inner">
     <a href="/" class="nav__brand" aria-label="Carolina Fine Foods — home">
       <img src="/images/logo.png" alt="Carolina Fine Foods" class="nav__brand-logo" width="450" height="266" />
@@ -69,6 +74,14 @@ const isActive = (href: string) => current === href.replace(/\/$/, '');
     box-shadow: 0 1px 0 rgba(26, 20, 16, 0.06);
   }
 
+  /* Sub-pages: opaque even in the expanded (top) state so page content never
+     shows through the bar's translucent lower edge when scrolling back up. */
+  .nav--solid {
+    background: rgba(247, 242, 234, 0.92);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+
   .nav__inner {
     width: 100%;
     max-width: 1440px;
@@ -82,9 +95,9 @@ const isActive = (href: string) => current === href.replace(/\/$/, '');
 
   .nav__brand {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.2rem;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.85rem;
     line-height: 1.1;
   }
 
@@ -104,7 +117,9 @@ const isActive = (href: string) => current === href.replace(/\/$/, '');
     letter-spacing: 0.22em;
     text-transform: uppercase;
     color: var(--color-maroon);
-    margin-top: 2px;
+    white-space: nowrap;
+    padding-left: 0.85rem;
+    border-left: 1px solid rgba(185, 145, 78, 0.5);
   }
 
   .nav__links {

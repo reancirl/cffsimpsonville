@@ -1,9 +1,14 @@
 ---
+import { BUSINESS } from '../config/site';
+import reviewsData from '../data/reviews.json';
+
 interface Props {
   headingLevel?: 'h1' | 'h2';
 }
 const { headingLevel = 'h2' } = Astro.props;
 const Heading = headingLevel;
+
+const { rating, total } = reviewsData;
 ---
 
 <section class="visit section" id="visit">
@@ -14,6 +19,16 @@ const Heading = headingLevel;
       <p>
         Just off the heart of Simpsonville, you&rsquo;ll find a porch light, a hot buffet, and somebody who remembers your name. Three private rooms for the family, the church group, the whole reunion &mdash; no extra charge.
       </p>
+
+      <a href="/reviews" class="visit__rating" aria-label={`Rated ${rating} out of 5 from ${total.toLocaleString()} Google reviews — read our reviews`}>
+        <svg class="visit__rating-star" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01z" />
+        </svg>
+        <span class="visit__rating-text">
+          <strong>{rating.toFixed(1)}</strong> · {total.toLocaleString()} Google reviews
+        </span>
+        <span class="visit__rating-arrow" aria-hidden="true">→</span>
+      </a>
     </div>
 
     <div class="visit__grid">
@@ -93,6 +108,9 @@ const Heading = headingLevel;
         <a href="mailto:cffsimpsonville@gmail.com" class="visit__reach-email">cffsimpsonville@gmail.com</a>
 
         <div class="visit__reach-options">
+          <a href={BUSINESS.orderUrl} target="_blank" rel="noopener" class="visit__reach-row visit__reach-row--link">
+            <span>Order online</span><em>Pickup &amp; delivery&nbsp;→</em>
+          </a>
           <div class="visit__reach-row">
             <span>Call-in</span><em>Orders & questions</em>
           </div>
@@ -102,9 +120,9 @@ const Heading = headingLevel;
           <div class="visit__reach-row">
             <span>DoorDash</span><em>Delivery available</em>
           </div>
-          <div class="visit__reach-row">
-            <span>Private rooms</span><em>Three rooms · no upcharge</em>
-          </div>
+          <a href="/private-dining" class="visit__reach-row visit__reach-row--link">
+            <span>Private rooms</span><em>Three rooms · no upcharge&nbsp;→</em>
+          </a>
         </div>
       </div>
     </div>
@@ -112,10 +130,11 @@ const Heading = headingLevel;
     <div class="visit__cta" data-reveal>
       <h3>Come hungry. Leave happy.</h3>
       <div class="visit__cta-buttons">
-        <a href="tel:+18649673335" class="btn btn-primary">
-          Reserve a table
+        <a href={BUSINESS.orderUrl} target="_blank" rel="noopener" class="btn btn-primary">
+          Order online
           <span class="btn-arrow">→</span>
         </a>
+        <a href="tel:+18649673335" class="btn btn-ghost">Call to reserve</a>
         <a href="https://maps.google.com/?q=625+SE+Main+St+Simpsonville+SC+29681" target="_blank" rel="noopener" class="btn btn-ghost">Get directions</a>
       </div>
     </div>
@@ -144,6 +163,41 @@ const Heading = headingLevel;
     font-size: 1.2rem;
     line-height: 1.6;
   }
+
+  /* Social-proof badge linking to the reviews page. */
+  .visit__rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: 1.75rem;
+    padding: 0.55rem 1.15rem;
+    border: 1px solid rgba(185, 145, 78, 0.45);
+    border-radius: 999px;
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    color: var(--color-ink-soft);
+    transition: border-color 0.3s var(--easing), background 0.3s var(--easing);
+  }
+
+  .visit__rating:hover {
+    border-color: var(--color-maroon);
+    background: rgba(107, 29, 42, 0.04);
+  }
+
+  .visit__rating-star { color: var(--color-gold); flex: 0 0 auto; }
+
+  .visit__rating-text strong {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    color: var(--color-maroon);
+  }
+
+  .visit__rating-arrow {
+    color: var(--color-maroon);
+    transition: transform 0.3s var(--easing);
+  }
+
+  .visit__rating:hover .visit__rating-arrow { transform: translateX(3px); }
 
   .visit__grid {
     display: grid;
@@ -329,6 +383,22 @@ const Heading = headingLevel;
     font-style: italic;
     font-family: var(--font-serif);
     color: var(--color-ink-soft);
+  }
+
+  /* Rows that are actually links (Order online, Private rooms). */
+  .visit__reach-row--link {
+    transition: transform 0.3s var(--easing);
+  }
+
+  .visit__reach-row--link em { color: var(--color-maroon); }
+
+  .visit__reach-row--link:hover {
+    transform: translateX(3px);
+  }
+
+  .visit__reach-row--link:hover span,
+  .visit__reach-row--link:hover em {
+    color: var(--color-maroon-deep);
   }
 
   .visit__cta {

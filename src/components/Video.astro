@@ -3,9 +3,9 @@
 // The thumbnail is a real frame from the film itself: the `#t=0.1` media
 // fragment makes the browser seek to ~0.1s and render that frame as the
 // poster (needs preload="metadata"), so it always matches the video content.
-import { YEARS_WORD } from '../config/years';
+import { YEARS_WORD } from "../config/years";
 
-const srcMp4 = '/videos/carolina-fine-foods.mp4';
+const srcMp4 = "/videos/carolina-fine-foods.mp4";
 const posterFrame = `${srcMp4}#t=0.1`;
 ---
 
@@ -18,12 +18,15 @@ const posterFrame = `${srcMp4}#t=0.1`;
         <span class="eyebrow eyebrow--light">Watch</span>
         <h2 data-reveal-heading>The most authentic Southern cuisine.</h2>
         <p>
-          Two minutes inside the kitchen on Main Street &mdash; the biscuits, the buffet, and {YEARS_WORD} years of hands that remember.
+          Two minutes inside the kitchen on Main Street &mdash; the biscuits,
+          the buffet, and {YEARS_WORD} years of hands that remember.
         </p>
       </header>
 
       <div class="film__featured" data-reveal>
-        <span class="eyebrow eyebrow--light film__featured-badge">As featured on B93.7</span>
+        <span class="eyebrow eyebrow--light film__featured-badge"
+          >As featured on B93.7</span
+        >
       </div>
 
       <div class="film__endorse" data-reveal>
@@ -37,10 +40,14 @@ const posterFrame = `${srcMp4}#t=0.1`;
             loading="lazy"
           />
           <p class="film__endorse-text">
-            When B93.7&rsquo;s Big Dave stopped by, he went straight for the <em>famous mac and cheese</em>. Press play to see his reaction.
+            When B93.7&rsquo;s Big Dave stopped by, he went straight for the <em
+              >famous mac and cheese</em
+            >. Press play to see his reaction.
           </p>
         </div>
-        <p class="film__endorse-attrib">Featured segment &mdash; B93.7 &middot; Simpsonville, SC</p>
+        <p class="film__endorse-attrib">
+          Featured segment &mdash; B93.7 &middot; Simpsonville, SC
+        </p>
       </div>
     </div>
 
@@ -57,16 +64,29 @@ const posterFrame = `${srcMp4}#t=0.1`;
         <a href={srcMp4}>Download the film</a> instead.
       </video>
 
-      <button class="film__play" id="film-play" type="button" aria-label="Play the film">
+      <button
+        class="film__play"
+        id="film-play"
+        type="button"
+        aria-label="Play the film"
+      >
         <span class="film__play-ring">
-          <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28" aria-hidden="true">
-            <path d="M8 5v14l11-7z" />
+          <svg
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            width="28"
+            height="28"
+            aria-hidden="true"
+          >
+            <path d="M8 5v14l11-7z"></path>
           </svg>
         </span>
         <span class="film__play-label">Play the film</span>
       </button>
 
-      <figcaption class="film__caption">Carolina Fine Foods &middot; Simpsonville, SC</figcaption>
+      <figcaption class="film__caption">
+        Carolina Fine Foods &middot; Simpsonville, SC
+      </figcaption>
     </figure>
   </div>
 </section>
@@ -82,8 +102,17 @@ const posterFrame = `${srcMp4}#t=0.1`;
   .film__bg-texture {
     position: absolute;
     inset: 0;
-    background-image: radial-gradient(circle at 18% 20%, rgba(185, 145, 78, 0.12), transparent 45%),
-                       radial-gradient(circle at 82% 80%, rgba(107, 29, 42, 0.4), transparent 55%);
+    background-image:
+      radial-gradient(
+        circle at 18% 20%,
+        rgba(185, 145, 78, 0.12),
+        transparent 45%
+      ),
+      radial-gradient(
+        circle at 82% 80%,
+        rgba(107, 29, 42, 0.4),
+        transparent 55%
+      );
     pointer-events: none;
   }
 
@@ -96,14 +125,18 @@ const posterFrame = `${srcMp4}#t=0.1`;
     align-items: center;
   }
 
-  .film__content { max-width: 460px; }
+  .film__content {
+    max-width: 460px;
+  }
 
   .film__head {
     text-align: left;
     margin: 0 0 1.75rem;
   }
 
-  .film__head .eyebrow { margin-bottom: 1rem; }
+  .film__head .eyebrow {
+    margin-bottom: 1rem;
+  }
 
   .film__head h2 {
     color: var(--color-bone);
@@ -120,8 +153,12 @@ const posterFrame = `${srcMp4}#t=0.1`;
     color: rgba(247, 242, 234, 0.78);
   }
 
-  .eyebrow--light { color: var(--color-gold-soft); }
-  .eyebrow--light::before { background: var(--color-gold-soft); }
+  .eyebrow--light {
+    color: var(--color-gold-soft);
+  }
+  .eyebrow--light::before {
+    background: var(--color-gold-soft);
+  }
 
   /* "As featured on B93.7" badge, sits with the copy beside the player */
   .film__featured {
@@ -134,7 +171,10 @@ const posterFrame = `${srcMp4}#t=0.1`;
     aspect-ratio: 16 / 9;
     border-radius: 2px;
     overflow: hidden;
-    box-shadow: var(--shadow-deep), 0 0 0 1px rgba(185, 145, 78, 0.35), 0 0 0 8px rgba(74, 18, 28, 0.5);
+    box-shadow:
+      var(--shadow-deep),
+      0 0 0 1px rgba(185, 145, 78, 0.35),
+      0 0 0 8px rgba(74, 18, 28, 0.5);
   }
 
   .film__video {
@@ -153,7 +193,11 @@ const posterFrame = `${srcMp4}#t=0.1`;
     align-items: center;
     justify-content: center;
     gap: 1.25rem;
-    background: linear-gradient(180deg, rgba(26, 20, 16, 0.2) 0%, rgba(26, 20, 16, 0.55) 100%);
+    background: linear-gradient(
+      180deg,
+      rgba(26, 20, 16, 0.2) 0%,
+      rgba(26, 20, 16, 0.55) 100%
+    );
     cursor: pointer;
     transition: opacity 0.5s var(--easing);
   }
@@ -173,8 +217,12 @@ const posterFrame = `${srcMp4}#t=0.1`;
     background: var(--color-maroon);
     color: var(--color-bone);
     border: 2px solid var(--color-gold-soft);
-    box-shadow: 0 12px 32px -6px rgba(0, 0, 0, 0.55), inset 0 0 0 4px rgba(212, 178, 122, 0.25);
-    transition: transform 0.4s var(--easing), background 0.4s var(--easing);
+    box-shadow:
+      0 12px 32px -6px rgba(0, 0, 0, 0.55),
+      inset 0 0 0 4px rgba(212, 178, 122, 0.25);
+    transition:
+      transform 0.4s var(--easing),
+      background 0.4s var(--easing);
   }
 
   .film__play-ring svg {
@@ -208,7 +256,9 @@ const posterFrame = `${srcMp4}#t=0.1`;
     transition: opacity 0.4s var(--easing);
   }
 
-  .film__frame.is-playing .film__caption { opacity: 0; }
+  .film__frame.is-playing .film__caption {
+    opacity: 0;
+  }
 
   /* Endorsement copy + attribution, beside the player */
   .film__endorse {
@@ -230,7 +280,9 @@ const posterFrame = `${srcMp4}#t=0.1`;
     border-radius: 50%;
     object-fit: cover;
     border: 1px solid var(--color-gold-soft);
-    box-shadow: 0 10px 24px -10px rgba(0, 0, 0, 0.6), inset 0 0 0 4px rgba(74, 18, 28, 0.55);
+    box-shadow:
+      0 10px 24px -10px rgba(0, 0, 0, 0.6),
+      inset 0 0 0 4px rgba(74, 18, 28, 0.55);
   }
 
   .film__endorse-text {
@@ -266,10 +318,18 @@ const posterFrame = `${srcMp4}#t=0.1`;
     }
     .film__head,
     .film__featured,
-    .film__endorse { text-align: center; }
-    .film__featured-badge { justify-content: center; }
-    .film__endorse-row { justify-content: center; }
-    .film__head h2 { font-size: clamp(2.2rem, 4.5vw, 3.4rem); }
+    .film__endorse {
+      text-align: center;
+    }
+    .film__featured-badge {
+      justify-content: center;
+    }
+    .film__endorse-row {
+      justify-content: center;
+    }
+    .film__head h2 {
+      font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+    }
     .film__frame {
       max-width: 1000px;
       margin: 0 auto;
@@ -278,14 +338,22 @@ const posterFrame = `${srcMp4}#t=0.1`;
   }
 
   @media (max-width: 600px) {
-    .film__play-ring { width: 68px; height: 68px; }
-    .film__play-label { margin-top: 2rem; }
+    .film__play-ring {
+      width: 68px;
+      height: 68px;
+    }
+    .film__play-label {
+      margin-top: 2rem;
+    }
     /* Stack the mac & cheese photo above the caption so it reads cleanly */
     .film__endorse-row {
       flex-direction: column;
       gap: 1rem;
     }
-    .film__endorse-img { width: 88px; height: 88px; }
+    .film__endorse-img {
+      width: 88px;
+      height: 88px;
+    }
   }
 
   @media (max-width: 380px) {
@@ -293,36 +361,64 @@ const posterFrame = `${srcMp4}#t=0.1`;
       font-size: 0.66rem;
       letter-spacing: 0.24em;
     }
-    .film__endorse-text { font-size: 1.05rem; }
-    .film__endorse-img { width: 72px; height: 72px; }
+    .film__endorse-text {
+      font-size: 1.05rem;
+    }
+    .film__endorse-img {
+      width: 72px;
+      height: 72px;
+    }
   }
 </style>
 
 <script is:inline>
   (function () {
-    const video = document.getElementById('brand-film');
-    const playBtn = document.getElementById('film-play');
+    const video = document.getElementById("brand-film");
+    const playBtn = document.getElementById("film-play");
     if (!video || !playBtn) return;
-    const frame = video.closest('.film__frame');
+    const frame = video.closest(".film__frame");
 
     let started = false;
-    playBtn.addEventListener('click', function () {
-      playBtn.classList.add('is-hidden');
-      if (frame) frame.classList.add('is-playing');
+    playBtn.addEventListener("click", function () {
+      playBtn.classList.add("is-hidden");
+      if (frame) frame.classList.add("is-playing");
       // The poster frame seeks to ~0.1s; rewind to 0 the first time we play.
-      if (!started) { video.currentTime = 0; started = true; }
+      if (!started) {
+        video.currentTime = 0;
+        started = true;
+      }
       video.play();
     });
 
-    video.addEventListener('pause', function () {
-      if (!video.ended) playBtn.classList.remove('is-hidden');
+    video.addEventListener("pause", function () {
+      if (!video.ended) playBtn.classList.remove("is-hidden");
     });
-    video.addEventListener('play', function () {
-      playBtn.classList.add('is-hidden');
+    video.addEventListener("play", function () {
+      playBtn.classList.add("is-hidden");
     });
-    video.addEventListener('ended', function () {
-      playBtn.classList.remove('is-hidden');
-      if (frame) frame.classList.remove('is-playing');
+    video.addEventListener("ended", function () {
+      playBtn.classList.remove("is-hidden");
+      if (frame) frame.classList.remove("is-playing");
+    });
+  })();
+
+  (function () {
+    if (location.hash !== "#film") return;
+    const section = document.getElementById("film");
+    if (!section) return;
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const snap = function () {
+      section.scrollIntoView({
+        behavior: reduce ? "auto" : "smooth",
+        block: "start",
+      });
+    };
+
+    window.addEventListener("load", function () {
+      requestAnimationFrame(function () {
+        requestAnimationFrame(snap);
+      });
+      setTimeout(snap, 500);
     });
   })();
 </script>

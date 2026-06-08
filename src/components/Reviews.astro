@@ -10,7 +10,10 @@ const { headingLevel = 'h2' } = Astro.props;
 const Heading = headingLevel;
 
 const { rating, total, reviewUrl } = reviewsData;
+// Spotlight the first review as a large pull-quote; the rest fill the grid.
 const REVIEWS = reviewsData.reviews;
+const featured = REVIEWS[0];
+const gridReviews = REVIEWS.slice(1);
 
 // Round the aggregate to nearest half for the header star row.
 const fullStars = Math.floor(rating);
@@ -51,8 +54,31 @@ const STAR_PATH = 'M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L
       </div>
     </header>
 
+    {featured && (
+      <figure class="reviews__featured" data-reveal>
+        <span class="reviews__featured-mark" aria-hidden="true">&ldquo;</span>
+        <blockquote class="reviews__featured-quote">{featured.text}</blockquote>
+        <figcaption class="reviews__featured-cite">
+          {featured.image
+            ? <img class="reviews__featured-avatar" src={featured.image} alt={`${featured.author} profile photo`} width="48" height="48" loading="lazy" />
+            : <span class="reviews__featured-avatar reviews__avatar--initial">{featured.author.charAt(0)}</span>}
+          <span class="reviews__featured-who">
+            <span class="reviews__featured-name">{featured.author}</span>
+            <span class="reviews__featured-meta">{featured.meta} · Google</span>
+          </span>
+          <span class="reviews__featured-stars" aria-label={`${featured.rating} out of 5`}>
+            {Array.from({ length: 5 }, (_, i) => (
+              <svg viewBox="0 0 24 24" class={`reviews__star ${i < featured.rating ? 'reviews__star--full' : 'reviews__star--empty'}`} aria-hidden="true">
+                <path d={STAR_PATH} />
+              </svg>
+            ))}
+          </span>
+        </figcaption>
+      </figure>
+    )}
+
     <div class="reviews__grid" data-reveal-stagger>
-      {REVIEWS.map((r) => (
+      {gridReviews.map((r) => (
         <figure class="reviews__card">
           <div class="reviews__card-head">
             {r.image
@@ -83,6 +109,27 @@ const STAR_PATH = 'M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L
         </figure>
       ))}
     </div>
+
+    <aside class="reviews__press" data-reveal>
+      <img
+        class="reviews__press-img"
+        src="/images/mac-n-cheese.webp"
+        alt="Carolina Fine Foods' famous mac and cheese"
+        width="120"
+        height="120"
+        loading="lazy"
+      />
+      <div class="reviews__press-body">
+        <span class="eyebrow">As Featured On B93.7</span>
+        <p class="reviews__press-text">
+          When B93.7&rsquo;s <strong>Big Dave</strong> stopped by, he went straight for the <em>famous mac &amp; cheese</em>.
+        </p>
+        <a href="/#film" class="reviews__press-link">
+          Watch the segment
+          <span class="reviews__press-arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </aside>
 
     <div class="reviews__cta" data-reveal>
       <a href={reviewUrl} target="_blank" rel="noopener" class="btn btn-primary">
@@ -144,9 +191,79 @@ const STAR_PATH = 'M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L
     color: var(--color-ink-soft);
   }
 
+  /* Featured pull-quote — one standout review, enlarged above the grid. */
+  .reviews__featured {
+    max-width: 860px;
+    margin: 0 auto 4rem;
+    text-align: center;
+    padding: 0 1rem;
+  }
+
+  .reviews__featured-mark {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 5rem;
+    line-height: 0.5;
+    color: var(--color-gold);
+    margin-bottom: 1rem;
+  }
+
+  .reviews__featured-quote {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    line-height: 1.4;
+    color: var(--color-ink);
+    margin: 0 0 2rem;
+  }
+
+  .reviews__featured-cite {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+  }
+
+  .reviews__featured-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  .reviews__featured-who {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    line-height: 1.25;
+  }
+
+  .reviews__featured-name {
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+
+  .reviews__featured-meta {
+    font-size: 0.78rem;
+    color: var(--color-ink-soft);
+    margin-top: 1px;
+  }
+
+  .reviews__featured-stars {
+    display: inline-flex;
+    gap: 1px;
+    padding-left: 0.85rem;
+    border-left: 1px solid rgba(26, 20, 16, 0.15);
+  }
+
+  .reviews__featured-stars .reviews__star { width: 16px; height: 16px; }
+
   .reviews__grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
     align-items: stretch;
     margin-bottom: 3.5rem;
@@ -244,6 +361,64 @@ const STAR_PATH = 'M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L
     color: var(--color-ink);
   }
 
+  /* "As featured on B93.7" press strip — media proof, links to the homepage film. */
+  .reviews__press {
+    display: flex;
+    align-items: center;
+    gap: 1.75rem;
+    max-width: 720px;
+    margin: 0 auto 3.5rem;
+    padding: 1.5rem 1.75rem;
+    background: var(--color-bone);
+    border: 1px solid rgba(185, 145, 78, 0.4);
+    border-radius: 8px;
+    box-shadow: 0 30px 60px -45px rgba(26, 20, 16, 0.4);
+  }
+
+  .reviews__press-img {
+    width: 88px;
+    height: 88px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid var(--color-gold-soft);
+  }
+
+  .reviews__press-body .eyebrow { margin-bottom: 0.6rem; }
+
+  .reviews__press-text {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.15rem;
+    line-height: 1.5;
+    color: var(--color-ink);
+    margin-bottom: 0.85rem;
+  }
+
+  .reviews__press-text strong {
+    font-style: normal;
+    font-weight: 600;
+    color: var(--color-maroon);
+  }
+
+  .reviews__press-text em { color: var(--color-maroon); }
+
+  .reviews__press-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-maroon);
+    padding-bottom: 0.25rem;
+    border-bottom: 1px solid var(--color-maroon);
+  }
+
+  .reviews__press-arrow { transition: transform 0.3s var(--easing); }
+  .reviews__press-link:hover .reviews__press-arrow { transform: translateX(4px); }
+
   .reviews__cta { text-align: center; }
 
   @media (max-width: 1024px) {
@@ -252,5 +427,13 @@ const STAR_PATH = 'M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L
 
   @media (max-width: 560px) {
     .reviews__grid { grid-template-columns: 1fr; }
+
+    .reviews__press {
+      flex-direction: column;
+      text-align: center;
+      gap: 1.25rem;
+    }
+    .reviews__press-body .eyebrow { justify-content: center; }
+    .reviews__press-link { justify-content: center; }
   }
 </style>
