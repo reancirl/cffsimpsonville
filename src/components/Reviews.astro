@@ -5,17 +5,21 @@ import reviewsData from '../data/reviews.json';
 
 interface Props {
   headingLevel?: 'h1' | 'h2';
-  /** Show the B93.7 press strip. Off on the homepage, where the film already appears. */
-  showPress?: boolean;
+  /** "teaser" (homepage) trims the grid + links out; "full" (/reviews) shows all. */
+  variant?: 'full' | 'teaser';
 }
-const { headingLevel = 'h2', showPress = true } = Astro.props;
+const { headingLevel = 'h2', variant = 'full' } = Astro.props;
 const Heading = headingLevel;
+const isTeaser = variant === 'teaser';
 
 const { rating, total, reviewUrl } = reviewsData;
 // Spotlight the first review as a large pull-quote; the rest fill the grid.
+// On the homepage, show only a few cards — the full list lives on /reviews.
 const REVIEWS = reviewsData.reviews;
 const featured = REVIEWS[0];
-const gridReviews = REVIEWS.slice(1);
+const gridReviews = isTeaser ? REVIEWS.slice(1, 4) : REVIEWS.slice(1);
+// The B93.7 strip is redundant on the homepage (the film is already there).
+const showPress = !isTeaser;
 
 // Round the aggregate to nearest half for the header star row.
 const fullStars = Math.floor(rating);
@@ -136,10 +140,17 @@ const STAR_PATH = 'M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L
     )}
 
     <div class="reviews__cta" data-reveal>
-      <a href={reviewUrl} target="_blank" rel="noopener" class="btn btn-primary">
-        Write a review
-        <span class="btn-arrow">→</span>
-      </a>
+      {isTeaser ? (
+        <a href="/reviews" class="btn btn-primary">
+          Read all reviews
+          <span class="btn-arrow">→</span>
+        </a>
+      ) : (
+        <a href={reviewUrl} target="_blank" rel="noopener" class="btn btn-primary">
+          Write a review
+          <span class="btn-arrow">→</span>
+        </a>
+      )}
     </div>
   </div>
 </section>

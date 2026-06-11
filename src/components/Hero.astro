@@ -414,8 +414,9 @@ const { rating, total } = reviewsData;
   .hero__scroll {
     position: absolute;
     bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
+    /* Pinned to the right so it clears the family-quote card, which floats out
+       the bottom-left of the hero image. */
+    right: 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
