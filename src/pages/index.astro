@@ -6,6 +6,7 @@ import Story from '../components/Story.astro';
 import Video from '../components/Video.astro';
 import MenuSection from '../components/Menu.astro';
 import Gallery from '../components/Gallery.astro';
+import PrivateDiningTeaser from '../components/PrivateDiningTeaser.astro';
 import Reviews from '../components/Reviews.astro';
 import Visit from '../components/Visit.astro';
 import ScrollReveal from '../components/ScrollReveal.tsx';
@@ -18,7 +19,8 @@ import ScrollReveal from '../components/ScrollReveal.tsx';
   <Video />
   <MenuSection variant="teaser" />
   <Gallery variant="teaser" />
-  <Reviews />
+  <PrivateDiningTeaser />
+  <Reviews showPress={false} />
   <Visit />
   <ScrollReveal client:load />
 </Layout>

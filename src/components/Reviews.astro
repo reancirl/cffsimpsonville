@@ -5,8 +5,10 @@ import reviewsData from '../data/reviews.json';
 
 interface Props {
   headingLevel?: 'h1' | 'h2';
+  /** Show the B93.7 press strip. Off on the homepage, where the film already appears. */
+  showPress?: boolean;
 }
-const { headingLevel = 'h2' } = Astro.props;
+const { headingLevel = 'h2', showPress = true } = Astro.props;
 const Heading = headingLevel;
 
 const { rating, total, reviewUrl } = reviewsData;
@@ -110,26 +112,28 @@ const STAR_PATH = 'M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L
       ))}
     </div>
 
-    <aside class="reviews__press" data-reveal>
-      <img
-        class="reviews__press-img"
-        src="/images/mac-n-cheese.webp"
-        alt="Carolina Fine Foods' famous mac and cheese"
-        width="120"
-        height="120"
-        loading="lazy"
-      />
-      <div class="reviews__press-body">
-        <span class="eyebrow">As Featured On B93.7</span>
-        <p class="reviews__press-text">
-          When B93.7&rsquo;s <strong>Big Dave</strong> stopped by, he went straight for the <em>famous mac &amp; cheese</em>.
-        </p>
-        <a href="/#film" class="reviews__press-link">
-          Watch the segment
-          <span class="reviews__press-arrow" aria-hidden="true">→</span>
-        </a>
-      </div>
-    </aside>
+    {showPress && (
+      <aside class="reviews__press" data-reveal>
+        <img
+          class="reviews__press-img"
+          src="/images/mac-n-cheese.webp"
+          alt="Carolina Fine Foods' famous mac and cheese"
+          width="120"
+          height="120"
+          loading="lazy"
+        />
+        <div class="reviews__press-body">
+          <span class="eyebrow">As Featured On B93.7</span>
+          <p class="reviews__press-text">
+            When B93.7&rsquo;s <strong>Big Dave</strong> stopped by, he went straight for the <em>famous mac &amp; cheese</em>.
+          </p>
+          <a href="/#film" class="reviews__press-link">
+            Watch the segment
+            <span class="reviews__press-arrow" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </aside>
+    )}
 
     <div class="reviews__cta" data-reveal>
       <a href={reviewUrl} target="_blank" rel="noopener" class="btn btn-primary">

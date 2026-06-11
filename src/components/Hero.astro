@@ -1,5 +1,8 @@
 ---
 import HeroAnimation from './HeroAnimation.tsx';
+import reviewsData from '../data/reviews.json';
+
+const { rating, total } = reviewsData;
 ---
 
 <section class="hero" id="top">
@@ -39,6 +42,13 @@ import HeroAnimation from './HeroAnimation.tsx';
           Plan your visit
         </a>
       </div>
+
+      <a href="/reviews" class="hero__rating" aria-label={`Rated ${rating} out of 5 from ${total.toLocaleString()} Google reviews`}>
+        <svg class="hero__rating-star" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01z" />
+        </svg>
+        <span class="hero__rating-text"><strong>{rating.toFixed(1)}</strong> · {total.toLocaleString()} Google reviews</span>
+      </a>
 
       <div class="hero__meta">
         <div class="hero__meta-item">
@@ -218,8 +228,30 @@ import HeroAnimation from './HeroAnimation.tsx';
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
-    margin-bottom: 3.5rem;
+    margin-bottom: 1.5rem;
   }
+
+  /* Social-proof rating, just under the CTAs. */
+  .hero__rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 3.5rem;
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    color: var(--color-ink-soft);
+    transition: color 0.3s var(--easing);
+  }
+
+  .hero__rating-star { color: var(--color-gold); }
+
+  .hero__rating-text strong {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--color-maroon);
+  }
+
+  .hero__rating:hover { color: var(--color-maroon); }
 
   .hero__meta {
     display: flex;

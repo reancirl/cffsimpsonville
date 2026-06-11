@@ -61,8 +61,20 @@ const schema = [
 
 <Layout title={title} description={description} path="/menu" schema={schema}>
   <div class="page-top">
-    <!-- A. Editorial intro + curated 3-column highlights (lead-in) -->
-    <MenuSection variant="full" headingLevel="h1" showFooter={false} />
+    <!-- A. Editorial intro + curated 3-column highlights (lead-in).
+         The feature photo is slotted in right after the intro line. -->
+    <MenuSection variant="full" headingLevel="h1" showFooter={false}>
+      <figure slot="feature" class="menu-feature__frame" data-image-reveal>
+        <img
+          src="/images/menu-img.webp"
+          alt="A hearty breakfast plate — eggs, baked beans, tomato and toast — with fresh coffee at Carolina Fine Foods"
+          width="1500"
+          height="918"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+    </MenuSection>
     <!-- B. Complete menu — every category & dish as serif lists -->
     <FullMenu />
     <!-- C + D. Daily-specials note and closing CTAs -->
@@ -70,3 +82,24 @@ const schema = [
   </div>
   <ScrollReveal client:load />
 </Layout>
+
+<style>
+  /* Feature photo slotted in after the intro. Pulled up under the intro and
+     given its own breathing room before the highlight columns below. */
+  .menu-feature__frame {
+    margin: 0 auto clamp(3.5rem, 7vw, 5.5rem);
+    max-width: 920px;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: 2px;
+    box-shadow: var(--shadow-deep), 0 0 0 1px rgba(185, 145, 78, 0.3),
+      0 0 0 8px rgba(247, 242, 234, 0.5);
+  }
+
+  .menu-feature__frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(1.03) contrast(1.02);
+  }
+</style>

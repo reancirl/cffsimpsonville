@@ -1,0 +1,88 @@
+---
+// Homepage teaser for the Private Dining page — a single offering band that
+// surfaces the three private rooms and drives event bookings to /private-dining.
+---
+
+<section class="pdt section">
+  <div class="container pdt__inner">
+    <div class="pdt__visual" data-image-reveal>
+      <img
+        src="/images/dining-2.png"
+        alt="A private dining room set for a gathering at Carolina Fine Foods"
+        width="680"
+        height="382"
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+
+    <div class="pdt__content">
+      <span class="eyebrow" data-reveal>Private Dining</span>
+      <h2 class="pdt__title" data-reveal-heading>Gatherings deserve a room of their own.</h2>
+      <p class="pdt__text" data-reveal data-reveal-delay="0.1">
+        From ceremonies and family celebrations to civic groups and holiday parties,
+        our three private dining rooms give your group a quiet, comfortable space —
+        at no additional cost when you dine in.
+      </p>
+      <a href="/private-dining" class="btn btn-primary" data-reveal data-reveal-delay="0.15">
+        Explore private dining
+        <span class="btn-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .pdt {
+    background: var(--color-bone);
+    overflow: hidden;
+  }
+
+  .pdt__inner {
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: clamp(2.5rem, 6vw, 5.5rem);
+    align-items: center;
+  }
+
+  .pdt__visual {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    border-radius: 2px;
+    box-shadow: var(--shadow-deep), 0 0 0 1px rgba(185, 145, 78, 0.3),
+      0 0 0 8px rgba(247, 242, 234, 0.5);
+  }
+
+  .pdt__visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(1.03) contrast(1.02);
+  }
+
+  .pdt__content .eyebrow { margin-bottom: 1.25rem; }
+
+  .pdt__title {
+    max-width: 16ch;
+    margin-bottom: 1.5rem;
+  }
+
+  .pdt__text {
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    line-height: 1.65;
+    color: var(--color-ink-soft);
+    max-width: 52ch;
+    margin-bottom: 2rem;
+  }
+
+  @media (max-width: 1024px) {
+    .pdt__inner { grid-template-columns: 1fr; }
+    .pdt__visual {
+      max-width: 600px;
+      margin: 0 auto;
+      order: -1;
+    }
+  }
+</style>

@@ -60,9 +60,12 @@ const categories = [
         <h2 data-reveal-heading>Two hundred dishes. One promise.</h2>
       )}
       <p data-reveal data-reveal-delay="0.15">
-        From sunrise breakfast to the last spoon of banana pudding, every plate at our table is made by hand — using cast iron, patience, and recipes our grandmothers swore by.
+        From sunrise breakfast to the last spoon of banana pudding, every plate is a taste of the South — made by hand with cast iron, patience, and the recipes our grandmothers swore by.
       </p>
     </header>
+
+    {/* Optional feature photo, slotted in right after the intro (menu page only). */}
+    <slot name="feature" />
 
     <div class="menu__categories">
       {categories.map((cat, idx) => (
