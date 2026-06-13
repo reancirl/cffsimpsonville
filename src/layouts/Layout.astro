@@ -27,11 +27,11 @@ const {
   noindex = false,
 } = Astro.props;
 
-// Normalize to a trailing slash so canonical URLs match the generated routes
-// and the sitemap (Astro emits /menu/ directories by default).
+// Standardize on NO trailing slash so canonicals are self-referencing and match
+// the routes/sitemap (trailingSlash: 'never'). Root stays "/".
 const rawPath = path ?? Astro.url.pathname;
-const pagePath = rawPath === '/' ? '/' : `/${rawPath.replace(/^\/|\/$/g, '')}/`;
-const canonical = new URL(pagePath, SITE.url).toString();
+const pagePath = rawPath === '/' ? '/' : `/${rawPath.replace(/^\/+|\/+$/g, '')}`;
+const canonical = new URL(pagePath, SITE.url).toString().replace(/(.+)\/$/, '$1');
 const ogImage = new URL(image, SITE.url).toString();
 ---
 

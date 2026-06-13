@@ -1,9 +1,9 @@
 // Helpers that build reusable schema.org objects for per-page JSON-LD.
 import { SITE } from './site';
 
-// Normalize to a trailing slash to match Astro's generated routes + sitemap.
+// Normalize to NO trailing slash to match the routes + sitemap (root stays "/").
 const abs = (path: string) => {
-  const norm = path === '/' ? '/' : `/${path.replace(/^\/|\/$/g, '')}/`;
+  const norm = path === '/' ? '/' : `/${path.replace(/^\/+|\/+$/g, '')}`;
   return new URL(norm, SITE.url).toString();
 };
 
