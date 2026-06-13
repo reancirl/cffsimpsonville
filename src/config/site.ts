@@ -20,6 +20,8 @@ export const BUSINESS = {
   name: 'Carolina Fine Foods',
   legalName: 'Carolina Fine Foods',
   founded: '1983',
+  description:
+    'Family-owned since 1983. Over 200 homemade Southern dishes — recipes passed down through generations. Lunch & breakfast buffet in Simpsonville, SC.',
   phone: '+1-864-967-3335',
   phoneDisplay: '864-967-3335',
   email: 'cffsimpsonville@gmail.com',
@@ -44,7 +46,14 @@ export const BUSINESS = {
   orderUrl:
     'https://order.online/business/-166132?visitorId=288f419e8b49d0ac588708',
   reviewUrl: 'https://g.co/kgs/u9zrz3P',
-  // Schema.org openingHoursSpecification.
+  // Authoritative profiles for schema.org `sameAs`. The component filters out
+  // empty strings, so leave a field blank until a real URL is confirmed.
+  // (Do NOT guess — a wrong profile in sameAs hurts entity disambiguation.)
+  profiles: {
+    googleBusiness: 'https://g.co/kgs/u9zrz3P', // Google Business Profile / Maps place
+    facebook: 'https://www.facebook.com/profile.php?id=100057541701984',
+    instagram: '',
+  },
   hours: [
     {
       label: 'Lunch Buffet',

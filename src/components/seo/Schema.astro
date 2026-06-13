@@ -1,24 +1,31 @@
 ---
 // Emits JSON-LD structured data. The Restaurant schema is rendered on every
 // page (good for the local knowledge panel); pages can pass additional schema
-// objects (BreadcrumbList, Menu, Review, etc.) via the `extra` prop.
+// objects (BreadcrumbList, Menu, WebPage, etc.) via the `extra` prop.
 import { SITE, BUSINESS } from '../../config/site';
 
 interface Props {
-  /** Absolute or root-relative URL of the current page. */
-  url: string;
   /** Extra schema.org objects to append (already shaped as JS objects). */
   extra?: Record<string, unknown>[];
 }
 
-const { url, extra = [] } = Astro.props;
+const { extra = [] } = Astro.props;
 const abs = (path: string) => new URL(path, SITE.url).toString();
+
+// Authoritative external profiles for entity disambiguation. Empty config
+// fields are dropped so we never emit a blank or placeholder URL.
+const sameAs = [
+  BUSINESS.profiles.googleBusiness,
+  BUSINESS.profiles.facebook,
+  BUSINESS.profiles.instagram,
+].filter(Boolean);
 
 const restaurant = {
   '@context': 'https://schema.org',
   '@type': 'Restaurant',
   '@id': `${SITE.url}/#restaurant`,
   name: BUSINESS.name,
+  description: BUSINESS.description,
   url: SITE.url,
   image: abs(SITE.ogImage),
   logo: abs('/images/logo.png'),
@@ -28,7 +35,7 @@ const restaurant = {
   servesCuisine: BUSINESS.cuisine,
   foundingDate: BUSINESS.founded,
   hasMenu: abs('/menu/'),
-  acceptsReservations: 'True',
+  acceptsReservations: true,
   address: {
     '@type': 'PostalAddress',
     streetAddress: BUSINESS.address.street,
@@ -49,7 +56,7 @@ const restaurant = {
     opens: h.opens,
     closes: h.closes,
   })),
-  sameAs: [BUSINESS.reviewUrl],
+  sameAs,
 };
 
 const blocks = [restaurant, ...extra];
