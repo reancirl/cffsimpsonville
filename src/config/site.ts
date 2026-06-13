@@ -1,10 +1,4 @@
-// ─────────────────────────────────────────────────────────────────────────
-// Central site + business configuration.
-// When the production domain is registered, update SITE_URL here (and the
-// matching `site` value in astro.config.mjs) — everything else derives from it.
-// ─────────────────────────────────────────────────────────────────────────
-
-export const SITE_URL = 'https://www.carolinafinefoods.com';
+export const SITE_URL = 'https://www.cffsimpsonville.com';
 
 export const SITE = {
   name: 'Carolina Fine Foods',
