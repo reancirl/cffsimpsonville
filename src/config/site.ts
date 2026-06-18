@@ -71,6 +71,5 @@ export const NAV_LINKS = [
   { label: 'Gallery', href: '/gallery' },
   { label: 'Reviews', href: '/reviews' },
   { label: 'Private Dining', href: '/private-dining' },
-  { label: 'Blog', href: '/blog' },
   { label: 'Visit', href: '/visit' },
 ];
