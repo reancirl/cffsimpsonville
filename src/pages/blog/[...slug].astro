@@ -1,0 +1,417 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ScrollReveal from '../../components/ScrollReveal.tsx';
+import { breadcrumb, blogPosting } from '../../config/schema';
+import { getPosts, getPost, formatDate } from '../../config/blog';
+
+// One route per published post. Drafts are skipped so they 404 in production.
+export function getStaticPaths() {
+  return getPosts().map((post) => ({ params: { slug: post.slug } }));
+}
+
+const { slug } = Astro.params;
+const post = getPost(slug!)!;
+const { title, description, pubDate, updatedDate, author, cover, coverAlt, tags, body } =
+  post;
+
+const path = `/blog/${post.slug}`;
+const pageTitle = `${title} | Carolina Fine Foods`;
+
+const schema = [
+  blogPosting({
+    title,
+    description,
+    path,
+    image: cover,
+    datePublished: pubDate,
+    dateModified: updatedDate,
+    author,
+  }),
+  breadcrumb([
+    { name: 'Blog', path: '/blog' },
+    { name: title, path },
+  ]),
+];
+---
+
+<Layout title={pageTitle} description={description} path={path} image={cover} schema={schema} noindex>
+  <article class="post">
+    <!-- ── HEADER ─────────────────────────────────────────────────────── -->
+    <header class="post-hero">
+      <div class="post-hero__texture" aria-hidden="true"></div>
+      <div class="container post-hero__inner">
+        <a href="/blog" class="post-hero__back" data-reveal>
+          <span aria-hidden="true">←</span> Blog
+        </a>
+
+        {tags.length > 0 && (
+          <ul class="post-hero__tags" data-reveal>
+            {tags.map((tag) => (
+              <li>{tag}</li>
+            ))}
+          </ul>
+        )}
+
+        <h1 class="post-hero__title" data-reveal-heading>{title}</h1>
+
+        <div class="post-hero__meta" data-reveal data-reveal-delay="0.1">
+          <span>By {author}</span>
+          <span class="post-hero__dot" aria-hidden="true">·</span>
+          <time datetime={pubDate}>{formatDate(pubDate)}</time>
+          {updatedDate && (
+            <>
+              <span class="post-hero__dot" aria-hidden="true">·</span>
+              <span>Updated {formatDate(updatedDate)}</span>
+            </>
+          )}
+        </div>
+      </div>
+    </header>
+
+    <!-- ── COVER ──────────────────────────────────────────────────────── -->
+    <div class="container">
+      <figure class="post-cover" data-reveal>
+        <img
+          src={cover}
+          alt={coverAlt}
+          width="1200"
+          height="675"
+          fetchpriority="high"
+          decoding="async"
+        />
+      </figure>
+    </div>
+
+    <!-- ── BODY ───────────────────────────────────────────────────────── -->
+    <div class="container post-body">
+      <div class="prose" data-reveal>
+        {body.map((block) => {
+          // Handle the list variants (which carry `items`, not `text`) first so
+          // the remaining branches narrow to the text-bearing block type.
+          if (block.type === 'ul') return <ul>{block.items.map((i) => <li>{i}</li>)}</ul>;
+          if (block.type === 'ol') return <ol>{block.items.map((i) => <li>{i}</li>)}</ol>;
+          if (block.type === 'h2') return <h2>{block.text}</h2>;
+          if (block.type === 'h3') return <h3>{block.text}</h3>;
+          if (block.type === 'quote') return <blockquote><p>{block.text}</p></blockquote>;
+          return <p>{block.text}</p>;
+        })}
+      </div>
+
+      <div class="post-back" data-reveal>
+        <a href="/blog" class="btn btn-ghost">
+          <span class="btn-arrow post-back__arrow" aria-hidden="true">←</span>
+          Back to Blog
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <!-- ── CTA BAND ─────────────────────────────────────────────────────── -->
+  <section class="post-cta section">
+    <div class="container">
+      <div class="post-cta__band" data-reveal>
+        <h2 class="post-cta__title">Come Taste It for Yourself</h2>
+        <p class="post-cta__sub">
+          Lunch &amp; breakfast buffet in the heart of Simpsonville.
+        </p>
+        <div class="post-cta__buttons">
+          <a href="/menu" class="btn btn-primary">
+            View the Menu
+            <span class="btn-arrow">→</span>
+          </a>
+          <a href="/blog" class="btn btn-ghost">More Stories</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <ScrollReveal client:load />
+</Layout>
+
+<style>
+  /* ── HEADER ─────────────────────────────────────────────────────────── */
+  .post-hero {
+    position: relative;
+    padding: calc(var(--header-height) + 3rem) 0 clamp(2rem, 4vw, 3rem);
+    background: linear-gradient(180deg, var(--color-bone) 0%, var(--color-cream) 100%);
+    overflow: hidden;
+  }
+
+  .post-hero__texture {
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 18% 28%, rgba(185, 145, 78, 0.08), transparent 42%),
+      radial-gradient(circle at 82% 72%, rgba(107, 29, 42, 0.06), transparent 50%);
+    pointer-events: none;
+  }
+
+  .post-hero__inner {
+    position: relative;
+    max-width: 800px;
+    text-align: center;
+  }
+
+  .post-hero__back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-maroon);
+    margin-bottom: 1.75rem;
+  }
+
+  .post-hero__back:hover {
+    color: var(--color-maroon-deep);
+  }
+
+  .post-hero__tags {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .post-hero__tags li {
+    font-family: var(--font-sans);
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-maroon);
+    padding: 0.35rem 0.85rem;
+    border: 1px solid rgba(185, 145, 78, 0.5);
+    border-radius: 999px;
+  }
+
+  .post-hero__title {
+    font-size: clamp(2.3rem, 5vw, 4rem);
+    line-height: 1.06;
+    letter-spacing: -0.02em;
+    margin: 0 auto 1.5rem;
+    max-width: 18ch;
+  }
+
+  .post-hero__meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+    color: var(--color-ink-soft);
+  }
+
+  .post-hero__dot {
+    color: var(--color-gold);
+  }
+
+  /* ── COVER ──────────────────────────────────────────────────────────── */
+  .post-cover {
+    margin: 0 auto;
+    max-width: 920px;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: 2px;
+    box-shadow: var(--shadow-deep), 0 0 0 1px rgba(185, 145, 78, 0.3),
+      0 0 0 6px rgba(247, 242, 234, 0.5);
+  }
+
+  .post-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(1.03) contrast(1.02);
+  }
+
+  /* ── BODY ───────────────────────────────────────────────────────────── */
+  .post-body {
+    padding-top: clamp(3rem, 6vw, 4.5rem);
+    padding-bottom: clamp(4rem, 8vw, 6rem);
+    background: var(--color-bone);
+  }
+
+  .prose {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  /* Back-to-blog button below the article, mirroring the prose column width. */
+  .post-back {
+    max-width: 680px;
+    margin: clamp(2.5rem, 5vw, 3.5rem) auto 0;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(26, 20, 16, 0.12);
+  }
+
+  /* The arrow points left here, so nudge it left (not right) on hover. */
+  .post-back .btn:hover .post-back__arrow {
+    transform: translateX(-4px);
+  }
+
+  /* Markdown elements — scoped with :global since <Content /> output isn't
+     processed by Astro's scoped-style hashing. */
+  .prose :global(p) {
+    font-size: 1.15rem;
+    line-height: 1.85;
+    color: var(--color-ink-soft);
+    margin-bottom: 1.6rem;
+  }
+
+  .prose :global(h2) {
+    font-size: clamp(1.7rem, 3vw, 2.3rem);
+    margin: 2.75rem 0 1.1rem;
+  }
+
+  .prose :global(h3) {
+    font-size: clamp(1.35rem, 2.2vw, 1.7rem);
+    margin: 2.25rem 0 0.9rem;
+  }
+
+  .prose :global(a) {
+    color: var(--color-maroon);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+    text-decoration-color: rgba(107, 29, 42, 0.35);
+  }
+
+  .prose :global(a:hover) {
+    color: var(--color-maroon-deep);
+    text-decoration-color: currentColor;
+  }
+
+  .prose :global(ul),
+  .prose :global(ol) {
+    margin: 0 0 1.6rem 1.4rem;
+    color: var(--color-ink-soft);
+  }
+
+  .prose :global(li) {
+    font-size: 1.15rem;
+    line-height: 1.7;
+    margin-bottom: 0.6rem;
+    padding-left: 0.4rem;
+  }
+
+  .prose :global(li::marker) {
+    color: var(--color-gold);
+  }
+
+  .prose :global(blockquote) {
+    margin: 2rem 0;
+    padding: 0.5rem 0 0.5rem 1.75rem;
+    border-left: 2px solid var(--color-gold);
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.4rem;
+    line-height: 1.5;
+    color: var(--color-ink);
+  }
+
+  .prose :global(blockquote p) {
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    margin: 0;
+  }
+
+  .prose :global(img) {
+    margin: 2rem 0;
+    border-radius: 2px;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .prose :global(hr) {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(185, 145, 78, 0.6), transparent);
+    margin: 3rem 0;
+  }
+
+  .prose :global(code) {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.92em;
+    background: var(--color-cream);
+    padding: 0.15em 0.4em;
+    border-radius: 3px;
+  }
+
+  /* ── CTA BAND ───────────────────────────────────────────────────────── */
+  .post-cta {
+    background: var(--color-bone);
+  }
+
+  .post-cta__band {
+    position: relative;
+    text-align: center;
+    padding: clamp(3rem, 6vw, 5rem) 2rem;
+    background: var(--color-maroon);
+    color: var(--color-bone);
+    border-radius: 2px;
+    border: 1px solid var(--color-gold-soft);
+    overflow: hidden;
+  }
+
+  .post-cta__band::before {
+    content: '';
+    position: absolute;
+    inset: 8px;
+    border: 1px solid rgba(212, 178, 122, 0.3);
+    pointer-events: none;
+  }
+
+  .post-cta__title {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--color-bone);
+    font-size: clamp(1.9rem, 4vw, 3rem);
+    margin-bottom: 0.85rem;
+  }
+
+  .post-cta__sub {
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    color: var(--color-gold-soft);
+    margin-bottom: 2rem;
+  }
+
+  .post-cta__buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .post-cta__band .btn-primary {
+    background: var(--color-bone);
+    color: var(--color-maroon);
+    border-color: var(--color-bone);
+  }
+
+  .post-cta__band .btn-primary:hover {
+    background: var(--color-gold-soft);
+    color: var(--color-maroon-deep);
+    border-color: var(--color-gold-soft);
+  }
+
+  .post-cta__band .btn-ghost {
+    color: var(--color-bone);
+    border-color: rgba(247, 242, 234, 0.4);
+  }
+
+  .post-cta__band .btn-ghost:hover {
+    background: var(--color-bone);
+    color: var(--color-maroon);
+    border-color: var(--color-bone);
+  }
+</style>

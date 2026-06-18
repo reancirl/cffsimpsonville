@@ -1,9 +1,13 @@
 ---
 import { NAV_LINKS, BUSINESS } from '../config/site';
 
-// Mark the current page so the matching nav link can highlight.
+// Mark the current page so the matching nav link can highlight. Non-root links
+// also match their sub-pages (e.g. /blog stays active on /blog/a-post).
 const current = Astro.url.pathname.replace(/\/$/, '') || '/';
-const isActive = (href: string) => current === href.replace(/\/$/, '');
+const isActive = (href: string) => {
+  const link = href.replace(/\/$/, '') || '/';
+  return current === link || (link !== '/' && current.startsWith(`${link}/`));
+};
 
 // The homepage opens on a full-bleed hero, so the bar floats translucent there.
 // Sub-pages open on content, so the bar stays opaque even at the top — otherwise

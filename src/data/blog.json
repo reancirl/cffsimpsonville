@@ -1,0 +1,131 @@
+{
+  "posts": [
+    {
+      "slug": "lorem-ipsum-dolor-sit-amet",
+      "title": "Lorem Ipsum Dolor Sit Amet",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "pubDate": "2026-05-28",
+      "author": "Carolina Fine Foods",
+      "cover": "/images/buffet.webp",
+      "coverAlt": "A spread of homemade Southern dishes on the buffet line",
+      "tags": ["Lorem", "Ipsum"],
+      "draft": false,
+      "body": [
+        { "type": "p", "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." },
+        { "type": "h2", "text": "Duis Aute Irure Dolor" },
+        { "type": "p", "text": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." },
+        { "type": "p", "text": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo." },
+        { "type": "quote", "text": "Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit." },
+        { "type": "h2", "text": "Nemo Enim Ipsam" },
+        { "type": "p", "text": "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt:" },
+        { "type": "ul", "items": ["Neque porro quisquam est qui dolorem ipsum", "Quia dolor sit amet consectetur adipisci velit", "Sed quia non numquam eius modi tempora incidunt"] },
+        { "type": "p", "text": "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur. Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur." }
+      ]
+    },
+    {
+      "slug": "sed-ut-perspiciatis-unde-omnis",
+      "title": "Sed Ut Perspiciatis Unde Omnis",
+      "description": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.",
+      "pubDate": "2026-04-16",
+      "author": "Carolina Fine Foods",
+      "cover": "/images/southern.webp",
+      "coverAlt": "A plate of classic Southern comfort food",
+      "tags": ["Dolor", "Amet"],
+      "draft": false,
+      "body": [
+        { "type": "p", "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti." },
+        { "type": "h2", "text": "Quos Dolores Et Quas" },
+        { "type": "p", "text": "Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est." },
+        { "type": "p", "text": "Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus." },
+        { "type": "h2", "text": "Ut Aut Reiciendis" },
+        { "type": "p", "text": "Ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat. Hanc ego cum teneam sententiam, quid est cur verear ne ad eam non possim accommodare:" },
+        { "type": "ol", "items": ["Nam libero tempore cum soluta nobis", "Eligendi optio cumque nihil impedit", "Quod maxime placeat facere possimus"] },
+        { "type": "p", "text": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident." }
+      ]
+    },
+    {
+      "slug": "at-vero-eos-et-accusamus",
+      "title": "At Vero Eos Et Accusamus",
+      "description": "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos.",
+      "pubDate": "2026-03-09",
+      "author": "Carolina Fine Foods",
+      "cover": "/images/mac-n-cheese.webp",
+      "coverAlt": "A close-up of homemade macaroni and cheese",
+      "tags": ["Ipsum", "Quia"],
+      "draft": false,
+      "body": [
+        { "type": "p", "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus." },
+        { "type": "h2", "text": "Itaque Earum Rerum" },
+        { "type": "p", "text": "Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat. Sed ut perspiciatis unde omnis iste natus error sit voluptatem." },
+        { "type": "p", "text": "Accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur." },
+        { "type": "h2", "text": "Quis Autem Vel" },
+        { "type": "p", "text": "Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur:" },
+        { "type": "ul", "items": ["Aut odit aut fugit sed quia consequuntur", "Magni dolores eos qui ratione voluptatem", "Sequi nesciunt neque porro quisquam est"] },
+        { "type": "p", "text": "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur." }
+      ]
+    },
+    {
+      "slug": "neque-porro-quisquam-est",
+      "title": "Neque Porro Quisquam Est",
+      "description": "Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi.",
+      "pubDate": "2026-02-20",
+      "author": "Carolina Fine Foods",
+      "cover": "/images/grilled-chicken.webp",
+      "coverAlt": "A plate of homemade grilled chicken",
+      "tags": ["Velit", "Modi"],
+      "draft": false,
+      "body": [
+        { "type": "p", "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." },
+        { "type": "h2", "text": "Tempora Incidunt Ut" },
+        { "type": "p", "text": "Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem." },
+        { "type": "p", "text": "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur. Quis autem vel eum iure reprehenderit qui in ea voluptate." },
+        { "type": "h2", "text": "Velit Esse Quam" },
+        { "type": "p", "text": "Velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur. At vero eos et accusamus et iusto odio dignissimos:" },
+        { "type": "ul", "items": ["Ducimus qui blanditiis praesentium voluptatum", "Deleniti atque corrupti quos dolores", "Et quas molestias excepturi sint occaecati"] },
+        { "type": "p", "text": "Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit." }
+      ]
+    },
+    {
+      "slug": "quis-nostrum-exercitationem",
+      "title": "Quis Nostrum Exercitationem",
+      "description": "Quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur quis autem.",
+      "pubDate": "2026-01-22",
+      "author": "Carolina Fine Foods",
+      "cover": "/images/fresh-hot.webp",
+      "coverAlt": "Fresh, hot Southern dishes ready to serve",
+      "tags": ["Corpus", "Ratione"],
+      "draft": false,
+      "body": [
+        { "type": "p", "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis." },
+        { "type": "h2", "text": "Et Quasi Architecto" },
+        { "type": "p", "text": "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet." },
+        { "type": "quote", "text": "Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur." },
+        { "type": "h2", "text": "Consequuntur Magni" },
+        { "type": "p", "text": "Sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem:" },
+        { "type": "ol", "items": ["Ullam corporis suscipit laboriosam", "Nisi ut aliquid ex ea commodi", "Consequatur quis autem vel eum"] },
+        { "type": "p", "text": "Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat." }
+      ]
+    },
+    {
+      "slug": "temporibus-autem-quibusdam",
+      "title": "Temporibus Autem Quibusdam",
+      "description": "Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint.",
+      "pubDate": "2025-12-11",
+      "author": "Carolina Fine Foods",
+      "cover": "/images/dish-1.webp",
+      "coverAlt": "A homemade Southern dish plated and ready",
+      "tags": ["Officiis", "Rerum"],
+      "draft": false,
+      "body": [
+        { "type": "p", "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae." },
+        { "type": "h2", "text": "Itaque Earum Rerum" },
+        { "type": "p", "text": "Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat. Et harum quidem rerum facilis est et expedita distinctio." },
+        { "type": "p", "text": "Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus." },
+        { "type": "h2", "text": "Maxime Placeat" },
+        { "type": "p", "text": "Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem:" },
+        { "type": "ul", "items": ["Eum fugiat quo voluptas nulla pariatur", "At vero eos et accusamus et iusto", "Odio dignissimos ducimus qui blanditiis"] },
+        { "type": "p", "text": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam." }
+      ]
+    }
+  ]
+}
