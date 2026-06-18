@@ -33,6 +33,11 @@ const rawPath = path ?? Astro.url.pathname;
 const pagePath = rawPath === '/' ? '/' : `/${rawPath.replace(/^\/+|\/+$/g, '')}`;
 const canonical = new URL(pagePath, SITE.url).toString().replace(/(.+)\/$/, '$1');
 const ogImage = new URL(image, SITE.url).toString();
+
+// The hero image is the home page's LCP element. Preloading it in <head> lets
+// the browser fetch it in parallel with the CSS instead of waiting to discover
+// the <img> in the body. Home page only — the hero lives nowhere else.
+const isHome = pagePath === '/';
 ---
 
 <!doctype html>
@@ -41,6 +46,25 @@ const ogImage = new URL(image, SITE.url).toString();
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/png" href="/images/logo.png" />
+
+    <!-- Fonts are self-hosted (see src/styles/fonts.css). Preload the three
+         faces used above the fold so text paints without a swap flash: the
+         body/nav sans (Inter 400), the display headline (Playfair 500), and the
+         italic serif sub-line (Cormorant 400 italic). The rest load on demand
+         via font-display:swap + unicode-range. -->
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-400.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/playfair-500.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/cormorant-400-italic.woff2" crossorigin />
+
+    {isHome && (
+      <link
+        rel="preload"
+        as="image"
+        href="/images/hero-1.webp"
+        imagesrcset="/images/hero-1-600.webp 600w, /images/hero-1.webp 960w"
+        imagesizes="(max-width: 1024px) min(480px, 90vw), 480px"
+      />
+    )}
 
     <title>{title}</title>
     <meta name="description" content={description} />
