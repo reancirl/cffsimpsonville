@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import ScrollReveal from '../components/ScrollReveal.tsx';
-import { breadcrumb, webPage } from '../config/schema';
+import { privateDiningPageSchema } from '../lib/schema/privateDiningPageSchema';
 
 const title = 'Private Dining Rooms in Simpsonville, SC | Carolina Fine Foods';
 const description =
@@ -41,8 +41,8 @@ const steps = [
   },
 ];
 
-// Answers are kept plain-text so they feed both the accordion and the FAQ
-// JSON-LD below. Capacity + lead-time copy is intentionally non-committal
+// Answers are kept plain-text so they feed the accordion. Capacity + lead-time
+// copy is intentionally non-committal and is not included in FAQPage schema
 // pending owner confirmation (see VERIFY notes at the markup spots).
 const faqs = [
   {
@@ -68,21 +68,7 @@ const faqs = [
 ];
 
 // ── Structured data ───────────────────────────────────────────────────────
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faqs.map((f) => ({
-    '@type': 'Question',
-    name: f.q,
-    acceptedAnswer: { '@type': 'Answer', text: f.a },
-  })),
-};
-
-const schema = [
-  webPage(title, '/private-dining', description),
-  breadcrumb([{ name: 'Private Dining', path: '/private-dining' }]),
-  faqSchema,
-];
+const schema = privateDiningPageSchema(title, description, faqs);
 ---
 
 <Layout title={title} description={description} path="/private-dining" schema={schema}>
