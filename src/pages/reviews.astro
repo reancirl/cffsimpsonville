@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Reviews from '../components/Reviews.astro';
 import ScrollReveal from '../components/ScrollReveal.tsx';
-import { breadcrumb, webPage } from '../config/schema';
+import { reviewsPageSchema } from '../lib/schema/reviewsPageSchema';
 
 const title = 'Reviews — Rated 4.4★ by the Upstate | Carolina Fine Foods';
 const description =
@@ -11,10 +11,7 @@ const description =
 // NOTE: No aggregateRating/review JSON-LD here. Self-serving review markup on
 // the business's own entity is ineligible for star rich results and a
 // manual-action risk — on-page reviews stay as plain visible content only.
-const schema = [
-  webPage(title, '/reviews', description),
-  breadcrumb([{ name: 'Reviews', path: '/reviews' }]),
-];
+const schema = reviewsPageSchema(title, description);
 ---
 
 <Layout title={title} description={description} path="/reviews" schema={schema}>
