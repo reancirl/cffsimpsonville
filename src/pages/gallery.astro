@@ -2,16 +2,14 @@
 import Layout from '../layouts/Layout.astro';
 import Gallery from '../components/Gallery.astro';
 import ScrollReveal from '../components/ScrollReveal.tsx';
-import { breadcrumb, webPage } from '../config/schema';
+import { galleryImages } from '../data/gallery';
+import { galleryPageSchema } from '../lib/schema/galleryPageSchema';
 
 const title = 'Gallery — Southern Food & Buffet Photos | Carolina Fine Foods';
 const description =
   'A look inside Carolina Fine Foods in Simpsonville, SC — our buffet line, handmade Southern plates, fried chicken, mac & cheese and the dishes made fresh every morning.';
 
-const schema = [
-  webPage(title, '/gallery', description),
-  breadcrumb([{ name: 'Gallery', path: '/gallery' }]),
-];
+const schema = galleryPageSchema(title, description, galleryImages);
 ---
 
 <Layout
