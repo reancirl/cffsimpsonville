@@ -10,9 +10,16 @@ import PrivateDiningTeaser from '../components/PrivateDiningTeaser.astro';
 import Reviews from '../components/Reviews.astro';
 import Visit from '../components/Visit.astro';
 import ScrollReveal from '../components/ScrollReveal.tsx';
+import {
+  HOME_DESCRIPTION,
+  HOME_TITLE,
+  homePageSchema,
+} from '../lib/schema/homePageSchema';
+
+const schema = homePageSchema();
 ---
 
-<Layout path="/">
+<Layout title={HOME_TITLE} description={HOME_DESCRIPTION} path="/" schema={schema}>
   <Hero />
   <Marquee />
   <Story headingLevel="h2" />
