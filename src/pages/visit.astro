@@ -2,16 +2,13 @@
 import Layout from '../layouts/Layout.astro';
 import Visit from '../components/Visit.astro';
 import ScrollReveal from '../components/ScrollReveal.tsx';
-import { breadcrumb, webPage } from '../config/schema';
+import { visitPageSchema } from '../lib/schema/visitPageSchema';
 
 const title = 'Visit Us — Hours, Location & Directions | Carolina Fine Foods';
 const description =
-  'Find Carolina Fine Foods at 625 SE Main St, Simpsonville, SC 29681. Lunch buffet Mon–Fri 11–2:30, breakfast buffet Sat–Sun 7–11. Call 864-967-3335 or get directions.';
+  'Find Carolina Fine Foods at 625 SE Main St, Simpsonville, SC 29681. Hot Lunch Bar and Salad Bar Mon–Fri 11 AM–2:25 PM, breakfast buffet Sat–Sun 7 AM–11 AM.';
 
-const schema = [
-  webPage(title, '/visit', description),
-  breadcrumb([{ name: 'Visit', path: '/visit' }]),
-];
+const schema = visitPageSchema(title, description);
 ---
 
 <Layout title={title} description={description} path="/visit" schema={schema}>
