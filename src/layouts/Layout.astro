@@ -2,7 +2,7 @@
 import '../styles/global.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
-import Schema from '../components/seo/Schema.astro';
+import JsonLd from '../components/JsonLd.astro';
 import { SITE } from '../config/site';
 
 interface Props {
@@ -88,7 +88,7 @@ const isHome = pagePath === '/';
 
     <meta name="theme-color" content="#6b1d2a" />
 
-    <Schema extra={schema} />
+    {schema.length > 0 && <JsonLd schema={schema} />}
   </head>
   <body>
     <Nav />
